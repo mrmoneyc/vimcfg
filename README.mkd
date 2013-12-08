@@ -1,0 +1,23 @@
+Vim configuration by mrmoneyc
+================================
+
+## Requirment
+- Git
+- Vim
+
+## Installation
+> `$ cd ~/.vim`
+> 
+> `$ make`
+
+## Update
+
+> `$ cd ~/.vim`
+> 
+> `$ make update`
+
+## Backup
+
+> `$ cd ~/.vim`
+> 
+> `$ make backup`

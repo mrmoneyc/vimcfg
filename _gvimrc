@@ -1,0 +1,114 @@
+"------------------------------------------------------------
+"
+" gVim/MacVim configure file.
+"
+" Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
+"
+" Last modified: 2012-11-10 18:51:41
+"
+"------------------------------------------------------------
+
+"------------------------------
+" OS Specific
+"------------------------------
+if has("gui_macvim")
+
+  " fullscreen options (MacVim only), resized window when changed to fullscreen
+  set fuoptions=maxvert,maxhorz
+  " fullscreen by default
+  "set fu
+  set guifont=Menlo:h13
+  " turn on tabs by default
+  set stal=2
+  "set transparency=8
+
+elseif has("gui_gtk2")
+
+  set guifont=Monaco\ 11
+  " turn on tabs by default
+  set stal=2
+
+elseif has("x11")
+elseif has("gui_win32")
+end
+
+"------------------------------
+" General
+"------------------------------
+" Antialias font
+set anti
+
+" Default size of window
+" use :set lines? and :set columns? to get line and col value
+" When font size = 15pt
+"set columns=140
+"set lines=38
+
+" When font size = 14pt
+"set columns=159
+"set lines=44
+
+" When font size = 13pt
+set columns=159
+set lines=46
+
+" maximize window
+"set columns=999
+"set lines=999
+
+"winsize 159 46
+
+" Default maximal window
+"autocmd GUIEnter * simalt ~x
+
+" Remove toolbar
+set guioptions-=m
+set guioptions-=T
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set guioptions+=c
+set guioptions-=e
+
+" Tab headings
+set gtl=%t gtt=%F
+
+" Set color env
+set t_Co=256
+
+" Set Colorscheme
+set background=dark
+
+colorscheme solarized
+"colorscheme molokai
+"colorscheme mango
+"colorscheme mustang
+"colorscheme wombat_mmc
+"colorscheme wombat256_mmc
+"colorscheme wombat256mod_mmc
+"colorscheme desert256
+"colorscheme ir_black
+"colorscheme tir_black
+"colorscheme slate
+"colorscheme murphy
+"colorscheme torte
+
+" Enable full mouse support in the console (Not support Mac OS X)
+set mouse=a
+
+" Over length highting
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
+"match OverLength /\%81v.\+/
+
+"hi LineProximity guibg=#DDDDB6 guifg=white
+"hi LineOverflow  guibg=#AAAAB6 guifg=white
+""--------------------------------------------------
+ "hi LineProximity guibg=#696869 guifg=white
+ "hi LineOverflow  guibg=#494849 guifg=white
+ "autocmd VimEnter * autocmd WinEnter * let w:created=1
+ "autocmd VimEnter * let w:created=1
+ "autocmd WinEnter * if !exists('w:created') | let w:m1=matchadd('LineProximity', '\%<101v.\%>95v', -1) | endif
+ "autocmd WinEnter * if !exists('w:created') | let w:m2=matchadd('LineOverflow', '\%>100v.\+', -1) | endif
+""--------------------------------------------------
