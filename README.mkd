@@ -1,23 +1,24 @@
 Vim configuration by mrmoneyc
 ================================
+####Last modified: 2013-12-08
 
-## Requirment
-- Git
-- Vim
+## Introduction
+Yet another Vim configuration file
 
 ## Installation
-> `$ cd ~/.vim`
-> 
-> `$ make`
+**Prerequisite: Make sure GIT is installed**
+> `$ curl -o - https://raw.github.com/mrmoneyc/vimcfg/master/install.sh|sh`
 
 ## Update
 
-> `$ cd ~/.vim`
-> 
-> `$ make update`
+Change work directory to .vim
+
+> `$ ./install.sh update`
 
 ## Backup
 
-> `$ cd ~/.vim`
-> 
-> `$ make backup`
+**You should modify GIT_REPO in install.sh before execute the action**
+
+Change work directory to .vim
+
+> `$ ./install.sh backup`
