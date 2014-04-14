@@ -2,9 +2,9 @@
 "
 " Vim configure file.
 "
-" Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
+" Maintainer: Chun-Ping Chang (mrmoneyc) <mmc -AT- mrmoneyc.org>
 "
-" Last modified: 2013-12-08 13:44:04
+" Last modified: 2014-04-14 13:34:04
 "
 "------------------------------------------------------------
 
@@ -15,7 +15,7 @@
 iab itoday <C-r>=strftime("%Y-%m-%d %H:%M:%S")
 
 " Map abbr imyinfo to your personal info. (need setting)
-iab imyinfo Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
+iab imyinfo Chun-Ping Chang (mrmoneyc) <mmc -AT- mrmoneyc.org>
 
 "------------------------------
 " NeoBundle
@@ -57,7 +57,7 @@ if exists(':NeoBundle')
   NeoBundle 'noahfrederick/vim-hemisu'
 
   " For JavaScript/Node.js development
-  NeoBundle 'hallettj/jslint.vim'
+  "NeoBundle 'hallettj/jslint.vim'
   "NeoBundle 'walm/jshint.vim'
   " NeoBundle 'JiangMiao/simple-javascript-indenter'
   "NeoBundle 'othree/javascript-syntax.vim'
