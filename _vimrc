@@ -58,7 +58,7 @@ if exists(':NeoBundle')
 
   " For JavaScript/Node.js development
   "NeoBundle 'hallettj/jslint.vim'
-  "NeoBundle 'walm/jshint.vim'
+  NeoBundle 'walm/jshint.vim'
   " NeoBundle 'JiangMiao/simple-javascript-indenter'
   "NeoBundle 'othree/javascript-syntax.vim'
   "NeoBundle 'pangloss/vim-javascript'
