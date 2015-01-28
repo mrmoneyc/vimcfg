@@ -98,6 +98,7 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'vimwiki'
 NeoBundle 'calendar.vim'
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'joonty/vdebug'
 
 " External Utilities
 NeoBundle 'rizzatti/funcoo.vim'
@@ -985,6 +986,25 @@ let g:html5_microdata_attributes_complete = 1
 
 " Disable WAI-ARIA attribute support
 let g:html5_aria_attributes_complete = 1
+
+"------------------------------
+" Vdebug
+"------------------------------
+let g:vdebug_keymap = {
+\    "run" : "<Leader>/",
+\    "run_to_cursor" : "<Down>",
+\    "step_over" : "<Up>",
+\    "step_into" : "<Left>",
+\    "step_out" : "<Right>",
+\    "close" : "q",
+\    "detach" : "x",
+\    "set_breakpoint" : "<Leader>p",
+\    "eval_visual" : "<Leader>e"
+\}
+
+let g:vdebug_options = {
+\    "break_on_open" : 0,
+\}
 
 "------------------------------
 " Indent Guides
