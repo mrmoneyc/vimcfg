@@ -62,9 +62,10 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Syntax
-NeoBundle 'skammer/vim-css-color'
-"NeoBundle 'lilydjwg/colorizer'
+"NeoBundle 'skammer/vim-css-color'
+NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'ctags.vim'
+NeoBundle 'majutsushi/tagbar'
 NeoBundle 'rafaelfranca/rtf_pygmentize'
 
 " Auto completion
@@ -73,10 +74,13 @@ NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 
 " Editing
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'mattn/emmet-vim'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'matchit.zip'
+NeoBundle 'Raimondi/delimitMate'
 
 " File management
 NeoBundle 'sudo.vim'
@@ -85,6 +89,10 @@ NeoBundle 'tpope/vim-fugitive'
 
 " For JavaScript Development
 NeoBundle 'Shutnik/jshint2.vim'
+NeoBundle 'pangloss/vim-javascript'
+
+" For Web Development
+NeoBundle 'othree/html5.vim'
 
 " Utilities
 NeoBundle 'vimwiki'
@@ -691,6 +699,36 @@ fun! CtrlPStatusFunc_2(str)
 endfunction
 
 "------------------------------
+"  Ctrl-P
+"------------------------------
+" Change the default mapping and the default command to invoke CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" Working directory
+" =================
+" | 'c' - the directory of the current file.
+" | 'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+" | 'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
+" |  0 or '' (empty string) - disable this feature.
+" =================
+let g:ctrlp_working_path_mode = 'ra'
+
+" Exclude files and directories
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+  \ }
+
+" Use a custom file listing command
+"let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+
+"------------------------------
 "  Auto completion: neocomplete, neosnippet.vim
 "------------------------------
 " Disable AutoComplPop.
@@ -796,6 +834,42 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 "let g:neosnippet#snippets_directory='$HOME/.vim/bundle/vim-snippets/snippets'
 
 "------------------------------
+" Tagbar
+"------------------------------
+" Set ctags path (essential on Mac OS X)
+if has("mac") || has("gui_mac")
+  let g:tagbar_ctags_bin = '/opt/local/bin/ctags'
+  " sudo npm install -g git://github.com/ramitos/jsctags.git
+  let g:tagbar_type_javascript = {'ctagsbin' : '/opt/local/bin/jsctags'}
+else
+  let g:tagbar_ctags_bin = '/usr/bin/ctags'
+endif
+
+" split to the right side of the screen
+let g:tagbar_left = 1
+
+" Tagbar window width
+let g:tagbar_width = 35
+
+" automatically close Tagbar when jump to a tag
+let g:tagbar_autoclose = 0
+
+" move the cursor to the Tagbar window when it is opened
+let g:tagbar_autofocus = 1
+
+" sort tag by name (set 0 sort by order)
+let g:tagbar_sort = 0
+
+" auto open closed fold when tag hilight
+let g:tagbar_autoshowtag = 1
+
+" remove extra information and blank lines from the taglist window.
+let g:tagbar_compact = 1
+
+let g:tagbar_foldlevel = 1
+let g:tagbar_expand = 0
+
+"------------------------------
 " Ctags <From:Fourdallars>
 "
 " Must recompile ctags by tarball on Mac OS X
@@ -869,6 +943,57 @@ let jshint2_error = 0
 
 " Set default height of error list
 let jshint2_height = 5
+
+" jshint validation
+nnoremap <localleader>jv :JSHint<CR>
+"inoremap <silent><F1> <C-O>:JSHint<CR>
+"v"noremap <silent><F1> :JSHint<CR>
+
+" show next jshint error
+nnoremap <localleader>jn :lnext<CR>
+"inoremap <silent><F2> <C-O>:lnext<CR>
+"vnoremap <silent><F2> :lnext<CR>
+
+" show previous jshint error
+nnoremap <localleader>jb :lprevious<CR>
+"inoremap <silent><F3> <C-O>:lprevious<CR>
+"vnoremap <silent><F3> :lprevious<CR>
+
+"------------------------------
+" vim-javascript
+"------------------------------
+" Enables HTML/CSS syntax highlighting in your JavaScript file
+let javascript_enable_domhtmlcss = 1
+
+" Enables JavaScript code folding
+let b:javascript_fold = 1
+
+" Disables JSDoc syntax highlighting
+let javascript_ignore_javaScriptdoc = 0
+
+" Customize concealing characters
+"let g:javascript_conceal_function   = "ƒ"
+"let g:javascript_conceal_null       = "ø"
+"let g:javascript_conceal_this       = "@"
+"let g:javascript_conceal_return     = "⇚"
+"let g:javascript_conceal_undefined  = "¿"
+"let g:javascript_conceal_NaN        = "ℕ"
+"let g:javascript_conceal_prototype  = "¶"
+
+"------------------------------
+" html5.vim
+"------------------------------
+" Disable event-handler attributes support
+let g:html5_event_handler_attributes_complete = 1
+
+" Disable RDFa attributes support
+let g:html5_rdfa_attributes_complete = 1
+
+" Disable microdata attributes support
+let g:html5_microdata_attributes_complete = 1
+
+" Disable WAI-ARIA attribute support
+let g:html5_aria_attributes_complete = 1
 
 "------------------------------
 " Indent Guides
