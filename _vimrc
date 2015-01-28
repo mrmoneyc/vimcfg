@@ -276,7 +276,7 @@ nnoremap <expr> i IndentWithI()
 
 
 "------------------------------
-" Function key binding
+" Function key binding (F1-F10)
 "------------------------------
 " Key binding: F2 - Toggle NERDTree
 nnoremap <F2> :NERDTreeToggle<CR>
@@ -290,30 +290,21 @@ nmap <F4> :SrcExplToggle<CR>
 " Key binding: F5 - key for toggle relative line number
 nmap <F5> :set rnu!<BAR>set rnu?<CR>
 
-" Highlight trailing whitespace characters Vim Tip #1274
+" Key binding: F6 - Highlight trailing whitespace characters Vim Tip #1274
 "set listchars=tab:->,trail:.
 set listchars=tab:▸\ ,eol:¬
 "set list
-"nmap <F5> :set list!<BAR>set list?<CR>
-nnoremap <leader>L :set list!<CR>
+nmap <F6> :set list!<BAR>set list?<CR>
 
-" Key binding: F5 - key for updating the tags file artificially
-" if has('mac') || has('gui_mac')
-"   let g:SrcExpl_updateTagsCmd = '/opt/local/bin/ctags --sort=foldcase -R .'
-" else
-"   let g:SrcExpl_updateTagsCmd = '/usr/bin/ctags --sort=foldcase -R .'
-" endif
-" let g:SrcExpl_updateTagsKey = '<F5>'
-
-" Key binding: F6 - Highlight search things Enable/Disable
+" Key binding: F7 - Highlight search things Enable/Disable
 set hlsearch
-nmap <F6> :set hls!<BAR>set hls?<CR>
+nmap <F7> :set hls!<BAR>set hls?<CR>
 
-" Key binding: F7 - Create Ctag of current project.
-nmap <F7> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" Key binding: F8 - Create Ctag of current project.
+nmap <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-" Key binding: Ctrl+F7 - Create Ctag of current folder.
-nmap <C-F7> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f '%:p:h\\tags' '%:p:h'<CR>
+" Key binding: Ctrl+F8 - Create Ctag of current folder.
+nmap <C-F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f '%:p:h\\tags' '%:p:h'<CR>
 
 
 "------------------------------
@@ -1032,6 +1023,13 @@ nnoremap \u :GundoToggle<CR>
 let g:gundo_width = 45
 let g:gundo_preview_height = 15
 let g:gundo_right = 0
+
+"------------------------------
+"  Colorizer
+"------------------------------
+" Key binding: assign :ColorToggle to ,ct
+let g:colorizer_nomap = 1
+noremap <localleader>ct :ColorToggle<CR>
 
 "------------------------------
 " ScrollColor
