@@ -2,9 +2,9 @@
 "
 " Vim configure file.
 "
-" Maintainer: Chun-Ping Chang (mrmoneyc) <mmc -AT- mrmoneyc.org>
+" Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2014-04-14 13:34:04
+" Last modified: 2015-01-25 01:17:10
 "
 "------------------------------------------------------------
 
@@ -15,138 +15,104 @@
 iab itoday <C-r>=strftime("%Y-%m-%d %H:%M:%S")
 
 " Map abbr imyinfo to your personal info. (need setting)
-iab imyinfo Chun-Ping Chang (mrmoneyc) <mmc -AT- mrmoneyc.org>
+iab imyinfo Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 
 "------------------------------
 " NeoBundle
 " Vundle alternative, to support non-git repos
 "------------------------------
-" required!
+" Note: Skip initialization for vim-tiny or vim-small.
+ if !1 | finish | endif
 
-" Get out of VI's compatible mode.
-set nocompatible
+ if has('vim_starting')
+   if &compatible
+     set nocompatible               " Be iMproved
+   endif
 
-filetype off
-filetype plugin indent off
+   " Required:
+   set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
+ endif
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle/'))
-endif
+ " Required:
+ call neobundle#begin(expand('$HOME/.vim/bundle/'))
 
-if exists(':NeoBundle')
-  " let NeoBundle manage NeoBundle
-  " required!
-  NeoBundle 'Shougo/neobundle.vim'
-  " recommended to install
-  " after install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-  NeoBundle 'Shougo/vimproc'
-  NeoBundle 'Shougo/vimshell'
-  NeoBundle 'Shougo/unite.vim'
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
 
-  " Install bundle list
-  NeoBundle 'L9'
+"------------------------------
+" Add or remove your Bundles here:
+"------------------------------
 
-  " Install colorscheme
-  NeoBundle 'altercation/vim-colors-solarized'
-  NeoBundle 'chriskempson/base16-vim'
-  NeoBundle 'goatslacker/mango.vim'
-  NeoBundle 'marcus/vim-mustang'
-  NeoBundle 'nanotech/jellybeans.vim'
-  NeoBundle 'jonathanfilip/vim-lucius'
-  NeoBundle 'noahfrederick/vim-hemisu'
+" Colorscheme
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'goatslacker/mango.vim'
+NeoBundle 'marcus/vim-mustang'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'noahfrederick/vim-hemisu'
+"NeoBundle 'flazz/vim-colorschemes'
 
-  " For JavaScript/Node.js development
-  "NeoBundle 'hallettj/jslint.vim'
-  NeoBundle 'walm/jshint.vim'
-  " NeoBundle 'JiangMiao/simple-javascript-indenter'
-  "NeoBundle 'othree/javascript-syntax.vim'
-  "NeoBundle 'pangloss/vim-javascript'
-  NeoBundle 'jelera/vim-javascript-syntax'
-  "NeoBundle 'jamescarr/snipmate-nodejs'
-  "NeoBundle 'teramako/jscomplete-vim'
-  NeoBundle 'mattn/jscomplete-vim'
-  "NeoBundle 'myhere/vim-nodejs-complete'
-  NeoBundle 'ahayman/vim-nodejs-complete'
-  NeoBundle 'moll/vim-node'
+" UI
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
-  " For PHP development
-  NeoBundle 'shawncplus/phpcomplete.vim'
+" Syntax
+NeoBundle 'skammer/vim-css-color'
+"NeoBundle 'lilydjwg/colorizer'
+NeoBundle 'ctags.vim'
+NeoBundle 'rafaelfranca/rtf_pygmentize'
 
-  " For Golang development
-  NeoBundle 'Blackrush/vim-gocode'
+" Auto completion
+NeoBundle 'Shougo/neocomplete'
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 
-  " Auto complection and snipmate + snippets
-  NeoBundle 'Shougo/vimproc'
-  NeoBundle 'Shougo/neocomplcache'
-  NeoBundle 'Shougo/neosnippet'
-  NeoBundle 'MarcWeber/vim-addon-mw-utils'
-  NeoBundle 'tomtom/tlib_vim'
-  NeoBundle 'honza/vim-snippets'
-  "NeoBundle 'msanders/snipmate.vim'
-  NeoBundle 'garbas/vim-snipmate'
+" Editing
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'mattn/emmet-vim'
 
+" File management
+NeoBundle 'sudo.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'tpope/vim-fugitive'
 
-  NeoBundle 'lilydjwg/colorizer'
-  "NeoBundle 'c9s/gsession.vim'
-  " NeoBundle 'c9s/hypergit.vim'
-  " NeoBundle 'c9s/simple-commenter.vim'
-  NeoBundle 'othree/html5.vim'
-  NeoBundle 'Source-Explorer-srcexpl.vim'
-  " NeoBundle 'tpope/vim-commentary'
-  NeoBundle 'scrooloose/nerdcommenter'
-  NeoBundle 'majutsushi/tagbar'
-  "NeoBundle 'mattn/zencoding-vim'
-  NeoBundle 'mattn/emmet-vim'
-  "NeoBundle 'hail2u/vim-css3-syntax'
-  NeoBundle 'plasticboy/vim-markdown'
-  "NeoBundle 'Lokaltog/vim-easymotion'
-  " NeoBundle 'mattn/gist-vim'
-  NeoBundle 'rafaelfranca/rtf_pygmentize'
-  NeoBundle 'nathanaelkane/vim-indent-guides'
-  NeoBundle 'spolu/dwm.vim'
-  NeoBundle 'briancollins/vim-jst'
+" For JavaScript Development
+NeoBundle 'Shutnik/jshint2.vim'
 
-  NeoBundle 'DirDiff.vim'
-  NeoBundle 'LargeFile'
-  NeoBundle 'The-NERD-tree'
-  NeoBundle 'ScrollColors'
-  "NeoBundle 'bufexplorer.zip'
-  NeoBundle 'cecutil'
-  NeoBundle 'ctags.vim'
-  "NeoBundle 'dbext.vim'
-  NeoBundle 'FuzzyFinder'
-  NeoBundle 'Gundo'
-  NeoBundle 'matchit.zip'
-  NeoBundle 'TaskList.vim'
-  NeoBundle 'Align'
-  NeoBundle 'IndentAnything'
-  NeoBundle 'JSON.vim'
-  NeoBundle 'jQuery'
-  NeoBundle 'code2html'
-  NeoBundle 'surround.vim'
-  NeoBundle 'repeat.vim'
-  NeoBundle 'sql.vim'
-  NeoBundle 'nosql.vim'
-  NeoBundle 'sudo.vim'
-  NeoBundle 'ctrlp.vim'
+" Utilities
+NeoBundle 'vimwiki'
+NeoBundle 'calendar.vim'
+NeoBundle 'mileszs/ack.vim'
 
-  " Utilities
-  NeoBundle 'vimwiki'
-  NeoBundle 'calendar.vim'
-  NeoBundle 'mileszs/ack.vim'
+" External Utilities
+NeoBundle 'rizzatti/funcoo.vim'
+NeoBundle 'rizzatti/dash.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+"------------------------------
 
-  " External Utilities
-  NeoBundle 'rizzatti/funcoo.vim'
-  NeoBundle 'rizzatti/dash.vim'
+ call neobundle#end()
 
-  " Installation check.
-  "if neobundle#exists_not_installed_bundles()
-    "echomsg 'Not installed bundles : ' .
-          "\ string(neobundle#get_not_installed_bundle_names())
-    "echomsg 'Please execute ":NeoBundleInstall" command.'
-  "endif
-endif
+ " Required:
+ filetype plugin indent on
+
+ " If there are uninstalled bundles found on startup,
+ " this will conveniently prompt you to install them.
+ NeoBundleCheck
 
 
 "------------------------------
@@ -290,6 +256,16 @@ set linebreak
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929 guifg=white
 "match OverLength /\%90v.\+/
 
+" Smart indent when entering insert mode with i on empty lines
+fun! IndentWithI()
+  if len(getline('.')) == 0
+    return "\"_ddO"
+  else
+    return "i"
+  endif
+endfunction
+nnoremap <expr> i IndentWithI()
+
 
 "------------------------------
 " Function key binding
@@ -398,7 +374,9 @@ nmap <localleader>fu :set ff=unix<CR>
 "  UI Style
 "------------------------------
 " Set color env
-set t_Co=256
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " Set background (dark/light)
 set background=dark
@@ -425,16 +403,16 @@ set cmdheight=2
 
 " Status bar
 set laststatus=2
-set statusline=%4*%<\ %1*[%F]
-set statusline+=%4*\ %5*[%{&encoding}, " encoding
-set statusline+=%{&fileformat}]%m " file format
-set statusline+=%4*%=\ %6*%y%4*\ POS:\ %3*%l%4*/%3*%L%4*\:%3*%c%4*\ \<%2*%P%4*\>
-highlight User1 ctermfg=red
-highlight User2 term=underline cterm=underline ctermfg=green
-highlight User3 term=underline cterm=underline ctermfg=yellow
-highlight User4 term=underline cterm=underline ctermfg=white
-highlight User5 ctermfg=cyan
-highlight User6 ctermfg=white
+"set statusline=%4*%<\ %1*[%F]
+"set statusline+=%4*\ %5*[%{&encoding}, " encoding
+"set statusline+=%{&fileformat}]%m " file format
+"set statusline+=%4*%=\ %6*%y%4*\ POS:\ %3*%l%4*/%3*%L%4*\:%3*%c%4*\ \<%2*%P%4*\>
+"highlight User1 ctermfg=red
+"highlight User2 term=underline cterm=underline ctermfg=green
+"highlight User3 term=underline cterm=underline ctermfg=yellow
+"highlight User4 term=underline cterm=underline ctermfg=white
+"highlight User5 ctermfg=cyan
+"highlight User6 ctermfg=white
 
 " Diff
 if has('diff')
@@ -566,7 +544,7 @@ fun! SmartTOHtml()
 endfun
 
 " Dictionary
-"set dictionary+=~/.vim/after/ftplugin/pydiction/complete-dict
+"set dictionary+=$HOME/.vim/after/ftplugin/pydiction/complete-dict
 
 
 "------------------------------
@@ -592,49 +570,6 @@ nmap <localleader>rhex :%!xxd -r<CR>
 
 
 "------------------------------
-" Node.js dev environment
-"------------------------------
-"au BufNewFile,BufRead *.ejs set filetype=html
-
-"------------------------------
-" PHP dev environment
-"------------------------------
-if has("au")
-  au BufEnter *.phtml set syn=php
-
-  " highlights interpolated variables in sql strings and does sql-syntax highlighting.
-  au FileType php let php_sql_query=1
-
-  " does exactly that. highlights html inside of php strings
-  au FileType php let php_htmlInStrings=1
-
-  " discourages use oh short tags. c'mon its deprecated remember
-  au FileType php let php_noShortTags=1
-
-  " automagically folds functions & methods. this is getting IDE-like isn't it?
-  au FileType php let php_folding=1
-
-  " set auto-highlighting of matching brackets for php only
-  "au FileType php DoMatchParen
-  "au FileType php hi MatchParen ctermbg=blue guibg=lightblue
-endif
-
-
-"------------------------------
-" Fix
-"------------------------------
-" Screen fix
-"--------------------------------------------------
-" if &term =~ '^screen'
-"   set t_k1=^[[11~
-"   set t_k2=^[[12~
-"   set t_k3=^[[13~
-"   set t_k4=^[[14~
-" endif
-"--------------------------------------------------
-
-
-"------------------------------
 " String replace keybinding
 "------------------------------
 fun! MyReplace()
@@ -653,162 +588,212 @@ endfun
 nmap <localleader>h :call MyReplace()<CR>
 "nmap <C-h> :call MyReplace()<CR>
 
+
 "------------------------------
 " Save as Root
 "------------------------------
 cnoremap w!! w !sudo tee % >/dev/null
 
 
-"------------------------------
+"------------------------------------------------------------
 " Plugins
+"------------------------------------------------------------
 "------------------------------
+"  Status bar: lightline
+"------------------------------
+let g:lightline = {
+  \ 'colorscheme': 'solarized',
+  \ 'mode_map': { 'c': 'NORMAL' },
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ]
+  \ },
+  \ 'component_function': {
+  \   'modified': 'MyModified',
+  \   'readonly': 'MyReadonly',
+  \   'fugitive': 'MyFugitive',
+  \   'filename': 'MyFilename',
+  \   'fileformat': 'MyFileformat',
+  \   'filetype': 'MyFiletype',
+  \   'fileencoding': 'MyFileencoding',
+  \   'mode': 'MyMode',
+  \   'ctrlpmark': 'CtrlPMark',
+  \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' }
+  \ }
+
+fun! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+fun! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⨂' : ''
+endfunction
+
+fun! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:f') ? expand('%:f') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+fun! MyFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⚑ '._ : ''
+  endif
+  return ''
+endfunction
+
+fun! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+fun! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+fun! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+fun! MyMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+fun! CtrlPMark()
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
+
+fun! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+fun! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
+endfunction
 
 "------------------------------
-" ScrollColor
-"------------------------------
-" Key binding: ,cn - Scroll next colorscheme
-nmap <localleader>cn :NEXTCOLOR<CR>
-
-" Key binding: ,cp - Scroll previous colorscheme
-nmap <localleader>cp :PREVCOLOR<CR>
-
-
-"------------------------------
-"  Auto completion use neocomplcache
+"  Auto completion: neocomplete, neosnippet.vim
 "------------------------------
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Disable auto complate
-let g:neocomplcache_disable_auto_complete = 1
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Set neocomplcache temporary directory
-let g:neocomplcache_temporary_dir = $HOME.'/.vim/neocompcache'
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-      \ }
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
 " Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+fun! s:my_cr_function()
+  "return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
 " <TAB>: completion.
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
 
 " AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 1
 
 " Shell like behavior(not recommended).
 "set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
-au FileType css setl omnifunc=csscomplete#CompleteCSS
-au FileType html setl omnifunc=htmlcomplete#CompleteTags
-au FileType xml setl omnifunc=xmlcomplete#CompleteTags
-au FileType php setl omnifunc=phpcomplete#CompletePHP
-"au FileType javascript setl omnifunc=javascriptcomplete#CompleteJS
-"au FileType javascript setl omnifunc=jscomplete#CompleteJS
-au FileType javascript setl omnifunc=nodejscomplete#CompleteJS
-au FileType python setl omnifunc=pythoncomplete#Complete
-au FileType c setl omnifunc=ccomplete#Complete
-au BufRead,BufNewFile *.py,*.c setl ai
-au BufRead,BufNewFile *.py,*.c setl smartindent
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"au FileType ruby setl omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-" JavaScript complete extension
-" - dom.vim : Adding DOM keywords completion.
-" - moz.vim : Adding Mozilla JavaScript keywords completion.
-" - xpcom.vim : Adding Mozilla XPCOM component keywords completion.
-" - es6th.vim : Adding ECMAScript 6th keywords completion.
-let g:jscomplete_use = ['dom', 'moz']
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-" Node.js compeletion with jscomplete
-let g:node_usejscomplete = 1
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
 
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
-"------------------------------
-" Tagbar
-"------------------------------
-" Set ctags path (essential on Mac OS X)
-if has("mac") || has("gui_mac")
-  let g:tagbar_ctags_bin = '/opt/local/bin/ctags'
-  "let g:tagbar_type_javascript = {'ctagsbin' : '/usr/local/bin/jsctags'}
-else
-  let g:tagbar_ctags_bin = '/usr/bin/ctags'
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
 endif
 
-" split to the right side of the screen
-let g:tagbar_left = 0
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
 
-" Tagbar window width
-let g:tagbar_width = 35
-
-" automatically close Tagbar when jump to a tag
-let g:tagbar_autoclose = 0
-
-" move the cursor to the Tagbar window when it is opened
-let g:tagbar_autofocus = 1
-
-" sort tag by name (set 0 sort by order)
-let g:tagbar_sort = 0
-
-" auto open closed fold when tag hilight
-let g:tagbar_autoshowtag = 1
-
-" remove extra information and blank lines from the taglist window.
-let g:tagbar_compact = 1
-
-let g:tagbar_foldlevel = 1
-let g:tagbar_expand = 1
-
+" Tell Neosnippet about the other snippets
+"let g:neosnippet#snippets_directory='$HOME/.vim/bundle/vim-snippets/snippets'
 
 "------------------------------
 " Ctags <From:Fourdallars>
@@ -823,7 +808,7 @@ else
 endif
 
 " Set tags save path
-set tags=./tags,./TAGS,tags,TAGS,~/.tags
+set tags=./tags,./TAGS,tags,TAGS,$HOME/.tags
 
 " Key binding: g+ - View in new tab
 nmap g+ viwy:tab ts <C-R>"<CR>
@@ -833,7 +818,6 @@ nmap g- viwy:pts <C-R>"<CR>
 nmap g= viwy:sts <C-R>"<CR>
 " Key binding: g+ - View in new tab
 nmap g<BAR> viwy:vsplit<CR>:ts <C-R>"<CR>
-
 
 "------------------------------
 "  cscope setting
@@ -859,55 +843,32 @@ endif
   set cscopequickfix=s-,g-,c-,d-,t-,e-,f-,i-
 endif
 
-
 "------------------------------
-" Source Explorer
+" JSHint 2
 "------------------------------
-let g:SrcExpl_pluginList = [
-        \ "__Tag_List__",
-        \ "_NERD_tree_",
-        \ "Source_Explorer"]
+" Set global JSHint command path (mostly for Windows)
+"let jshint2_command = ''
 
-" Set the height of Source Explorer window
-let g:SrcExpl_winHeight = 8
+" Lint JavaScript files after reading it
+let jshint2_read = 1
 
-" Refresh time
-let g:SrcExpl_refreshTime = 100
+" Lint JavaScript files after saving it
+let jshint2_save = 1
 
-" Enable/Disable update the tags file when opening
-let g:SrcExpl_isUpdateTags = 0
+" Do not automatically close orphaned error lists
+let jshint2_close = 0
 
-" Search Local definition
-let g:SrcExpl_searchLocalDef = 0
+" Skip lint confirmation for non JavaScript files
+let jshint2_confirm = 0
 
-" Set "Enter" key to jump into the exact definition context
-let g:SrcExpl_jumpKey = "<ENTER>"
+" Do not use colored messages
+let jshint2_color = 0
 
-" Set "Space" key for back from the definition context
-let g:SrcExpl_gobackKey = "<SPACE>"
+" Hide error codes in error list (if you don't use error ignoring or error codes confuses you)
+let jshint2_error = 0
 
-
-"------------------------------
-" FuzzyFinder
-"------------------------------
-" Key binding: \fb - Buffer mode
-nnoremap <leader>fb :FufBuffer! <CR>
-nnoremap <localleader>fb :FufBuffer! <CR>
-
-" Key binding: \ff - File mode
-nnoremap <leader>ff :FufFile! <CR>
-
-" Key binding: \fcd - Directory mode
-nnoremap <leader>fcd :FufDir! <CR>
-
-" Key binding: \fm - Bookmark mode
-nnoremap <leader>fm :FufBookmark! <CR>
-
-" Key binding: \ft - Tag mod
-nnoremap <leader>ft :FufTag! <CR>
-
-" Key binding: \fl - Jump-List mod
-nnoremap <leader>fl :FufJumpLis! <CR>
+" Set default height of error list
+let jshint2_height = 5
 
 "------------------------------
 " Indent Guides
@@ -924,8 +885,8 @@ let g:indent_guides_guide_size = 1
 " RTF Pygmentize
 "------------------------------
 " Valid options are: 'default', 'emacs', 'friendly' and 'colorful'
-let g:rtfp_theme = 'emacs'
-let g:rtfp_font = 'Menlo'
+"let g:rtfp_theme = 'emacs'
+"let g:rtfp_font = 'Menlo'
 
 "Key binding: CMD+c - Copy colored source code to clipboard
 "smap <D-c> :RTFPygmentize<CR>
@@ -939,7 +900,6 @@ let g:vimwiki_list = [{'path': '$HOME/vimwiki/', 'path_html': '$HOME/vimwiki/htm
 
 noremap \h :VimwikiAll2HTML<CR>
 
-
 "------------------------------
 " Gundo
 "------------------------------
@@ -948,56 +908,12 @@ let g:gundo_width = 45
 let g:gundo_preview_height = 15
 let g:gundo_right = 0
 
+"------------------------------
+" ScrollColor
+"------------------------------
+" Key binding: ,cn - Scroll next colorscheme
+nmap <localleader>cn :NEXTCOLOR<CR>
 
-"------------------------------
-"  CheckSyntax
-"------------------------------
-" Key binding: assign :CheckSyntax to ,cs
-noremap <localleader>cs :CheckSyntax<cr>
-
-
-"------------------------------
-"  JSLint
-"------------------------------
-if &ft != 'javascript'
-  nnoremap \js :JSLintToggle<CR>
-  nnoremap \jsu :JSLintUpdate<CR>
-  "au VimEnter *  call JSLintToggle()
-  let g:JSLintHighlightErrorLine = 0
-endif
-
-"------------------------------
-"  CheckSyntax
-"------------------------------
-let $JS_CMD='node'
-
-
-"------------------------------
-"  Colorizer
-"------------------------------
-" Key binding: assign :ColorToggle to ,ct
-let g:colorizer_nomap = 1
-noremap <localleader>ct :ColorToggle<CR>
-
-
-"------------------------------
-"  Zen Coding
-"------------------------------
-" Key binding: reassign trigger key
-"let g:user_zen_expandabbr_key = '<c-e>'
-"let g:use_zen_complete_tag = 1
-
-"------------------------------
-"  Vim-Markdown
-"------------------------------
-" Disable Folding
-let g:vim_markdown_folding_disabled=1
-
-" Set Initial Foldlevel
-let g:vim_markdown_initial_foldlevel=0
-
-
-"------------------------------
-"  External diff setting
-"------------------------------
-let g:DirDiffDynamicDiffText = 1
+" Key binding: ,cp - Scroll previous colorscheme
+nmap <localleader>cp :PREVCOLOR<CR>
+"------------------------------------------------------------
