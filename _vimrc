@@ -707,7 +707,7 @@ endfunction
 let g:ctrlp_working_path_mode = 'ra'
 
 " Exclude files and directories
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 "set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 "
 let g:ctrlp_custom_ignore = {
