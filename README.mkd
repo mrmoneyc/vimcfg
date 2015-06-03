@@ -1,6 +1,6 @@
 Vim configuration by mrmoneyc
 ================================
-####Last modified: 2013-12-08
+####Last modified: 2015-06-03
 
 ## Introduction
 Yet another Vim configuration file

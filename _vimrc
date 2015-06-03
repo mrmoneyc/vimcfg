@@ -73,19 +73,12 @@ NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
 
-" Editing
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'matchit.zip'
-NeoBundle 'Raimondi/delimitMate'
+" For Golang Development
+NeoBundle 'fatih/vim-go'
+NeoBundle 'nsf/gocode'
 
-" File management
-NeoBundle 'sudo.vim'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'tpope/vim-fugitive'
+" For PHP Development
+NeoBundle 'etaoins/vim-volt-syntax'
 
 " For JavaScript Development
 NeoBundle 'Shutnik/jshint2.vim'
@@ -94,11 +87,27 @@ NeoBundle 'pangloss/vim-javascript'
 " For Web Development
 NeoBundle 'othree/html5.vim'
 
+" Editing
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'matchit.zip'
+"NeoBundle 'Raimondi/delimitMate'
+
+" File management
+NeoBundle 'sudo.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'tpope/vim-fugitive'
+
 " Utilities
 NeoBundle 'vimwiki'
 NeoBundle 'calendar.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'joonty/vdebug'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'christoomey/vim-quicklink'
 
 " External Utilities
 NeoBundle 'rizzatti/funcoo.vim'
@@ -247,12 +256,14 @@ filetype plugin on
 filetype indent on
 
 " Auto set shift width by filetype
-au FileType html,python,perl,php,vim,javascript,css setl shiftwidth=2
-au FileType html,python,perl,php,vim,javascript,css setl tabstop=2
-au FileType html,python,perl,php,vim,javascript,css setl softtabstop=2
-au FileType c,java setl shiftwidth=4
-au FileType c,java setl tabstop=4
-au FileType c,java setl softtabstop=4
+au FileType html,python,perl,php,vim,javascript,css,go
+  \ set shiftwidth=2 |
+  \ set tabstop=2 |
+  \ set softtabstop=2
+au FileType c,java
+  \ set shiftwidth=4 |
+  \ set tabstop=4 |
+  \ set softtabstop=4
 
 " Word wrap without line breaks
 set wrap
@@ -843,7 +854,7 @@ else
 endif
 
 " split to the right side of the screen
-let g:tagbar_left = 1
+let g:tagbar_left = 0
 
 " Tagbar window width
 let g:tagbar_width = 35
@@ -865,6 +876,34 @@ let g:tagbar_compact = 1
 
 let g:tagbar_foldlevel = 1
 let g:tagbar_expand = 0
+
+let g:tagbar_type_go = {
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 "------------------------------
 " Ctags <From:Fourdallars>
@@ -991,6 +1030,34 @@ let g:html5_microdata_attributes_complete = 1
 
 " Disable WAI-ARIA attribute support
 let g:html5_aria_attributes_complete = 1
+
+"------------------------------
+" vim-go
+"------------------------------
+" Disable opening browser after posting to your snippet to play.golang.org
+let g:go_play_open_browser = 0
+
+" By default vim-go shows errors for the fmt command, to disable it
+let g:go_fmt_fail_silently = 0
+
+" Enable goimports to automatically insert import paths instead of gofmt
+let g:go_fmt_command = "goimports"
+
+" Disable auto fmt on save
+let g:go_fmt_autosave = 1
+
+" By default binaries are installed to $GOBIN or $GOPATH/bin. To change it
+"let g:go_bin_path = expand("~/.gotools")
+"let g:go_bin_path = "/home/fatih/.mypath"      "or give absolute path
+
+" By default syntax-highlighting for Functions, Methods and Structs is
+" disabled. To change it
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
 
 "------------------------------
 " Vdebug

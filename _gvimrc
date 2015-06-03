@@ -20,7 +20,7 @@ if has("gui_macvim")
   set guifont=Menlo:h13
   " turn on tabs by default
   set stal=2
-  "set transparency=8
+  set transparency=8
 
 elseif has("gui_gtk2")
 
