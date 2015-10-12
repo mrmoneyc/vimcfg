@@ -256,11 +256,11 @@ filetype plugin on
 filetype indent on
 
 " Auto set shift width by filetype
-au FileType html,python,perl,php,vim,javascript,css,go
+au FileType html,python,perl,vim,javascript,css,go
   \ set shiftwidth=2 |
   \ set tabstop=2 |
   \ set softtabstop=2
-au FileType c,java
+au FileType c,php,java
   \ set shiftwidth=4 |
   \ set tabstop=4 |
   \ set softtabstop=4
