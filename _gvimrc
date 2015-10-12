@@ -24,7 +24,7 @@ if has("gui_macvim")
 
 elseif has("gui_gtk2")
 
-  set guifont=Monaco\ 11
+  set guifont=Inconsolata\ 13
   " turn on tabs by default
   set stal=2
 
