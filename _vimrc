@@ -79,6 +79,7 @@ NeoBundle 'nsf/gocode'
 
 " For PHP Development
 NeoBundle 'etaoins/vim-volt-syntax'
+NeoBundle 'vim-php/tagbar-phpctags.vim'
 
 " For JavaScript Development
 NeoBundle 'Shutnik/jshint2.vim'
@@ -905,6 +906,9 @@ let g:tagbar_type_go = {
       \ 'ctagsargs' : '-sort -silent'
       \ }
 
+" The amount of memory that phpctags can use
+let g:tagbar_phpctags_memory_limit = '512M'
+
 "------------------------------
 " Ctags <From:Fourdallars>
 "
@@ -918,7 +922,8 @@ else
 endif
 
 " Set tags save path
-set tags=./tags,./TAGS,tags,TAGS,$HOME/.tags
+"set tags=./tags,./TAGS,tags,TAGS,$HOME/.tags
+set tags=$HOME/.tags
 
 " Key binding: g+ - View in new tab
 nmap g+ viwy:tab ts <C-R>"<CR>
