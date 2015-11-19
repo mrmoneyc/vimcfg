@@ -922,8 +922,7 @@ else
 endif
 
 " Set tags save path
-"set tags=./tags,./TAGS,tags,TAGS,$HOME/.tags
-set tags=$HOME/.tags
+set tags=./tags,./TAGS,tags,TAGS,$HOME/.tags
 
 " Key binding: g+ - View in new tab
 nmap g+ viwy:tab ts <C-R>"<CR>
