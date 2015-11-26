@@ -80,6 +80,7 @@ NeoBundle 'nsf/gocode'
 " For PHP Development
 NeoBundle 'etaoins/vim-volt-syntax'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
+NeoBundle 'StanAngeloff/php.vim'
 
 " For JavaScript Development
 NeoBundle 'Shutnik/jshint2.vim'
@@ -286,6 +287,13 @@ fun! IndentWithI()
   endif
 endfunction
 nnoremap <expr> i IndentWithI()
+
+" Delete a name of a php variable without dollar sign
+" http://stackoverflow.com/questions/32928881/vim-syntax-delete-a-name-of-a-php-variable-without-dollar-sign
+augroup PHP
+  autocmd!
+  autocmd FileType php setlocal iskeyword-=$
+augroup END
 
 
 "------------------------------
@@ -1092,6 +1100,11 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 "au VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
 "au VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+"
+"------------------------------
+" Nerd Commenter
+"------------------------------
+let NERDSpaceDelims = 1
 
 "------------------------------
 " RTF Pygmentize
