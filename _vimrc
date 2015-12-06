@@ -106,10 +106,13 @@ NeoBundle 'tpope/vim-fugitive'
 " Utilities
 NeoBundle 'vimwiki'
 NeoBundle 'calendar.vim'
-NeoBundle 'mileszs/ack.vim'
 NeoBundle 'joonty/vdebug'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'christoomey/vim-quicklink'
+" NeoBundle 'mileszs/ack.vim'
+NeoBundle 'rking/ag.vim'
+" NeoBundle 'eshion/vim-sync/'
+NeoBundle 'mattn/vim-particle'
 
 " External Utilities
 NeoBundle 'rizzatti/funcoo.vim'
@@ -217,6 +220,9 @@ nmap <localleader>reload :source $HOME/.vimrc<CR>
 if has('mac') || has('gui_mac')
 "  let $PATH = '/opt/local/bin:'.$PATH
 endif
+
+" Make a buffer modifiable
+" set modifiable
 
 "--------------------------------------------------
 " fun! MyPlatform()
@@ -924,6 +930,9 @@ let g:tagbar_type_go = {
       \ 'ctagsargs' : '-sort -silent'
       \ }
 
+" The location of phpctags
+let g:tagbar_phpctags_bin='$HOME/bin/phpctags'
+
 " The amount of memory that phpctags can use
 let g:tagbar_phpctags_memory_limit = '512M'
 
@@ -1110,11 +1119,18 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 "au VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=black
 "au VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
-"
+
 "------------------------------
 " Nerd Commenter
 "------------------------------
 let NERDSpaceDelims = 1
+
+"------------------------------
+" ack.vim / ag.vim
+"------------------------------
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif"
 
 "------------------------------
 " RTF Pygmentize
