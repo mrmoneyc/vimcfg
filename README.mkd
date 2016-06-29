@@ -7,7 +7,7 @@ Yet another Vim configuration file
 
 ## Installation
 **Prerequisite: Make sure GIT is installed**
-> `$ curl -o - https://raw.github.com/mrmoneyc/vimcfg/master/install.sh|sh`
+> `$ curl -o - https://raw.githubusercontent.com/mrmoneyc/vimcfg/master/install.sh | sh`
 
 ## Update
 
