@@ -4,7 +4,7 @@
 "
 " Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2015-01-25 01:17:10
+" Last modified: 2016-06-29 15:06:32
 "
 "------------------------------------------------------------
 
@@ -72,6 +72,7 @@ NeoBundle 'rafaelfranca/rtf_pygmentize'
 NeoBundle 'Shougo/neocomplete'
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'craigemery/vim-autotag'
 
 " For Golang Development
 NeoBundle 'fatih/vim-go'
@@ -80,7 +81,12 @@ NeoBundle 'nsf/gocode'
 " For PHP Development
 NeoBundle 'etaoins/vim-volt-syntax'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
+NeoBundle 'vim-php/vim-phpunit'
+NeoBundle 'vim-php/vim-composer'
 NeoBundle 'StanAngeloff/php.vim'
+" NeoBundle 'stephpy/vim-php-cs-fixer'
+NeoBundle 'joonty/vim-phpqa.git'
+NeoBundle 'm2mdas/phpcomplete-extended'
 
 " For JavaScript Development
 NeoBundle 'Shutnik/jshint2.vim'
@@ -97,11 +103,14 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'matchit.zip'
 "NeoBundle 'Raimondi/delimitMate'
+" NeoBundle 'LargeFile'
 
 " File management
+NeoBundle 'joonty/vim-sauce.git'
 NeoBundle 'sudo.vim'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'yegappan/mru'
 
 " Utilities
 NeoBundle 'vimwiki'
@@ -268,7 +277,7 @@ au FileType html,python,perl,vim,javascript,css,go
   \ set shiftwidth=2 |
   \ set tabstop=2 |
   \ set softtabstop=2
-au FileType c,php,java
+au FileType c,php,java,sh
   \ set shiftwidth=4 |
   \ set tabstop=4 |
   \ set softtabstop=4
@@ -829,6 +838,7 @@ let g:neocomplete#enable_auto_select = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -856,9 +866,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \: "\<TAB>"
 
 " For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" if has('conceal')
+  " set conceallevel=2 concealcursor=i
+" endif
 
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -985,6 +995,53 @@ endif
 endif
 
 "------------------------------
+" vim-phpqa
+"------------------------------
+" Ruleset
+" let g:phpqa_messdetector_ruleset = "/path/to/phpmd.xml"
+
+" Set the codesniffer args
+let g:phpqa_codesniffer_args = "--standard=$HOME/dotenv/Vim/phpcs.xml"
+
+" PHP executable (default = "php")
+"let g:phpqa_php_cmd='/path/to/php'
+
+" PHP Code Sniffer binary (default = phpcs)
+"let g:phpqa_codesniffer_cmd='/path/to/phpcs'
+
+" PHP Mess Detector binary (default = phpmd)
+"let g:phpqa_messdetector_cmd='/path/to/phpmd'
+
+" Don't run messdetector on save (default = 1)
+let g:phpqa_messdetector_autorun = 0
+
+" Don't run codesniffer on save (default = 1)
+let g:phpqa_codesniffer_autorun = 1
+
+" Show code coverage on load (default = 0)
+let g:phpqa_codecoverage_autorun = 0
+
+" Stop the location list opening automatically
+"let g:phpqa_open_loc = 0
+
+" Clover code coverage XML file
+"let g:phpqa_codecoverage_file = "/path/to/clover.xml"
+
+" Show markers for lines that ARE covered by tests (default = 1)
+"let g:phpqa_codecoverage_showcovered = 0
+
+"------------------------------
+" vim-phpunit
+"------------------------------
+" let g:phpunit_cmd = "/usr/bin/mytest"
+" let g:phpunit_args = "--configuration /path/to/config"
+
+"------------------------------
+" phpcomplete-extended
+"------------------------------
+let g:phpcomplete_index_composer_command = "composer"
+
+"------------------------------
 " JSHint 2
 "------------------------------
 " Set global JSHint command path (mostly for Windows)
@@ -1089,7 +1146,6 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-
 "------------------------------
 " Vdebug
 "------------------------------
@@ -1160,6 +1216,22 @@ let g:gundo_preview_height = 15
 let g:gundo_right = 0
 
 "------------------------------
+" MRU
+"------------------------------
+highlight link MRUFileName LineNr
+" let MRU_File = '~/_vim_mru_files'
+let MRU_Max_Entries = 1000
+let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'  " For Unix
+" let MRU_Exclude_Files = '^c:\\temp\\.*'           " For MS-Windows
+let MRU_Window_Height = 10
+let MRU_Use_Current_Window = 0
+let MRU_Auto_Close = 1
+let MRU_Add_Menu = 1
+let MRU_Max_Menu_Entries = 20
+let MRU_Max_Submenu_Entries = 15
+let MRU_Filename_Format={'formatter':'v:val', 'parser':'.*'}
+
+"------------------------------
 "  Colorizer
 "------------------------------
 " Key binding: assign :ColorToggle to ,ct
@@ -1174,4 +1246,9 @@ nmap <localleader>cn :NEXTCOLOR<CR>
 
 " Key binding: ,cp - Scroll previous colorscheme
 nmap <localleader>cp :PREVCOLOR<CR>
+
+"------------------------------
+" vim-sauce
+"------------------------------
+let g:sauce_path = "$HOME/.vim/vimsauce"
 "------------------------------------------------------------
