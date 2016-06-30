@@ -4,7 +4,7 @@
 "
 " Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2016-06-29 15:06:32
+" Last modified: 2016-06-30 14:19:50
 "
 "------------------------------------------------------------
 
@@ -18,134 +18,129 @@ iab itoday <C-r>=strftime("%Y-%m-%d %H:%M:%S")
 iab imyinfo Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 
 "------------------------------
-" NeoBundle
-" Vundle alternative, to support non-git repos
+" dein
+" NeoBundle alternative, to support more feature
 "------------------------------
 " Note: Skip initialization for vim-tiny or vim-small.
- if !1 | finish | endif
+if !1 | finish | endif
 
- if has('vim_starting')
-   if &compatible
-     set nocompatible               " Be iMproved
-   endif
-
-   " Required:
-   set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
+if has('vim_starting')
+ if &compatible
+   set nocompatible               " Be iMproved
  endif
 
  " Required:
- call neobundle#begin(expand('$HOME/.vim/bundle/'))
+ set runtimepath+=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
+endif
 
- " Let NeoBundle manage NeoBundle
- " Required:
- NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+call dein#begin(expand('$HOME/.vim/bundle'))
+
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
 
 "------------------------------
-" Add or remove your Bundles here:
+" Add or remove your plugins here
 "------------------------------
 
 " Colorscheme
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'goatslacker/mango.vim'
-NeoBundle 'marcus/vim-mustang'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'noahfrederick/vim-hemisu'
-"NeoBundle 'flazz/vim-colorschemes'
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('chriskempson/base16-vim')
+call dein#add('goatslacker/mango.vim')
+call dein#add('marcus/vim-mustang')
+call dein#add('nanotech/jellybeans.vim')
+call dein#add('jonathanfilip/vim-lucius')
+call dein#add('noahfrederick/vim-hemisu')
+"call dein#add('flazz/vim-colorschemes')
 
 " UI
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+call dein#add('Shougo/vimshell')
+" You can specify revision/branch/tag.
+" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+call dein#add('Shougo/unite.vim')
+call dein#add('itchyny/lightline.vim')
+call dein#add('sjl/gundo.vim')
+call dein#add('nathanaelkane/vim-indent-guides')
 
 " Syntax
-"NeoBundle 'skammer/vim-css-color'
-NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'ctags.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'rafaelfranca/rtf_pygmentize'
+"call dein#add('skammer/vim-css-color')
+call dein#add('lilydjwg/colorizer')
+call dein#add('ctags.vim')
+call dein#add('majutsushi/tagbar')
+call dein#add('rafaelfranca/rtf_pygmentize')
 
 " Auto completion
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'craigemery/vim-autotag'
+call dein#add('Shougo/neocomplete')
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('craigemery/vim-autotag')
 
 " For Golang Development
-NeoBundle 'fatih/vim-go'
-NeoBundle 'nsf/gocode'
+call dein#add('fatih/vim-go')
+call dein#add('nsf/gocode')
 
 " For PHP Development
-NeoBundle 'etaoins/vim-volt-syntax'
-NeoBundle 'vim-php/tagbar-phpctags.vim'
-NeoBundle 'vim-php/vim-phpunit'
-NeoBundle 'vim-php/vim-composer'
-NeoBundle 'StanAngeloff/php.vim'
-" NeoBundle 'stephpy/vim-php-cs-fixer'
-NeoBundle 'joonty/vim-phpqa.git'
-NeoBundle 'm2mdas/phpcomplete-extended'
+call dein#add('etaoins/vim-volt-syntax')
+call dein#add('vim-php/tagbar-phpctags.vim')
+call dein#add('vim-php/vim-phpunit')
+call dein#add('vim-php/vim-composer')
+call dein#add('StanAngeloff/php.vim')
+" call dein#add('stephpy/vim-php-cs-fixer')
+call dein#add('joonty/vim-phpqa.git')
+call dein#add('m2mdas/phpcomplete-extended')
 
 " For JavaScript Development
-NeoBundle 'Shutnik/jshint2.vim'
-NeoBundle 'pangloss/vim-javascript'
+call dein#add('Shutnik/jshint2.vim')
+call dein#add('pangloss/vim-javascript')
 
 " For Web Development
-NeoBundle 'othree/html5.vim'
+call dein#add('othree/html5.vim')
 
 " Editing
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'matchit.zip'
-"NeoBundle 'Raimondi/delimitMate'
-" NeoBundle 'LargeFile'
+call dein#add('mattn/emmet-vim')
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('scrooloose/nerdcommenter')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-repeat')
+call dein#add('matchit.zip')
+"call dein#add('Raimondi/delimitMate')
+" call dein#add('LargeFile')
 
 " File management
-NeoBundle 'joonty/vim-sauce.git'
-NeoBundle 'sudo.vim'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'yegappan/mru'
+call dein#add('joonty/vim-sauce.git')
+call dein#add('sudo.vim')
+call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('tpope/vim-fugitive')
+call dein#add('yegappan/mru')
 
 " Utilities
-NeoBundle 'vimwiki'
-NeoBundle 'calendar.vim'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'christoomey/vim-quicklink'
-" NeoBundle 'mileszs/ack.vim'
-NeoBundle 'rking/ag.vim'
-" NeoBundle 'eshion/vim-sync/'
-NeoBundle 'mattn/vim-particle'
+call dein#add('vimwiki/vimwiki')
+call dein#add('calendar.vim')
+call dein#add('joonty/vdebug')
+call dein#add('mattn/webapi-vim')
+call dein#add('christoomey/vim-quicklink')
+" call dein#add('mileszs/ack.vim')
+call dein#add('rking/ag.vim')
+" call dein#add('eshion/vim-sync/')
+call dein#add('mattn/vim-particle')
 
 " External Utilities
-NeoBundle 'rizzatti/funcoo.vim'
-NeoBundle 'rizzatti/dash.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
+call dein#add('rizzatti/funcoo.vim')
+call dein#add('rizzatti/dash.vim')
+call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 "------------------------------
 
- call neobundle#end()
+ call dein#end()
 
  " Required:
  filetype plugin indent on
 
- " If there are uninstalled bundles found on startup,
- " this will conveniently prompt you to install them.
- NeoBundleCheck
-
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
 
 "------------------------------
 " General

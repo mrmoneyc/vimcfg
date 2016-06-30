@@ -15,7 +15,7 @@ die() {
 
 postinst() {
     echo "[1;33m -- COMPILE VIMPROC  -- [m"
-    pushd $BUNDLE_DIR/vimproc*
+    pushd $BUNDLE_DIR/**/vimproc*
     make clean && make
     popd
 }
@@ -30,10 +30,7 @@ backup_prev() {
 }
 
 update() {
-    pushd $BUNDLE_DIR/neobundle.vim
-    git pull
-    popd
-    vim -c 'NeoBundleUpdate' -c 'qa'
+    vim -c 'call dein#update()' -c 'qa'
 }
 
 backup() {
@@ -43,14 +40,16 @@ backup() {
     popd
 }
 
-inst_neobundle() {
-    echo "[1;33m -- INSTALL NEOBUNDLE -- [m"
-    git clone git://github.com/Shougo/neobundle.vim $BUNDLE_DIR/neobundle.vim
+inst_dein(){
+    echo "[1;33m -- INSTALL DEIN.VIM -- [m"
+    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein_inst.sh
+    sh dein_inst.sh $BUNDLE_DIR
+    rm dein_inst.sh
 }
 
 inst_vimplugins() {
     echo "[1;33m -- INSTALL VIM PLUGINS -- [m"
-    vim -c 'NeoBundleClean' -c 'NeoBundleInstall' -c 'qa'
+    vim -c 'call dein#install()' -c 'qa'
 }
 
 install() {
@@ -76,5 +75,5 @@ install() {
 case "$1" in
     "update") update ;;
     "backup") backup ;;
-    *) install && inst_neobundle && inst_vimplugins && postinst && echo "[1;33m -- DONE -- [m" ;;
+    *) install && inst_dein && inst_vimplugins && postinst && echo "[1;33m -- DONE -- [m" ;;
 esac
