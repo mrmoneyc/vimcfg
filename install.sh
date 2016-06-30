@@ -15,7 +15,7 @@ die() {
 
 postinst() {
     echo "[1;33m -- COMPILE VIMPROC  -- [m"
-    pushd $BUNDLE_DIR/**/vimproc*
+    pushd $BUNDLE_DIR/repos/github.com/Shougo/vimproc*
     make clean && make
     popd
 }
