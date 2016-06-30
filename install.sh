@@ -53,7 +53,7 @@ inst_vimplugins() {
 }
 
 install() {
-    [ -e "$HOME/.vim" ] && [ -e "$HOME/.vimrc" ] && die "$HOME/.vim/ and $HOME/.vimrc already exist."
+    [ -e "$VIM_DIR" ] && [ -e "$HOME/.vimrc" ] && die "$VIM_DIR and $HOME/.vimrc already exist."
 
     pushd $HOME
     git clone https://github.com/mrmoneyc/vimcfg.git "$VIM_DIR"
@@ -63,7 +63,9 @@ install() {
     ln -fs $VIM_DIR/_gvimrc $HOME/.gvimrc
 
     mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-    ln -s $VIM_DIR $XDG_CONFIG_HOME/nvim
+    if ! [ -e "$XDG_CONFIG_HOME/nvim" ]; then
+        ln -s $VIM_DIR $XDG_CONFIG_HOME/nvim
+    fi
     ln -s $VIM_DIR/_vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
     pushd $VIM_DIR
