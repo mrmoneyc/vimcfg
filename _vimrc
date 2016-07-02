@@ -4,7 +4,7 @@
 "
 " Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2016-06-30 14:19:50
+" Last modified: 2016-07-03 01:28:36
 "
 "------------------------------------------------------------
 
@@ -75,6 +75,7 @@ call dein#add('rafaelfranca/rtf_pygmentize')
 call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/neoinclude.vim')
 call dein#add('craigemery/vim-autotag')
 
 " For Golang Development
@@ -132,10 +133,10 @@ call dein#add('rizzatti/dash.vim')
 call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 "------------------------------
 
- call dein#end()
+call dein#end()
 
- " Required:
- filetype plugin indent on
+" Required:
+filetype plugin indent on
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
