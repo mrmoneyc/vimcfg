@@ -18,6 +18,3 @@ Change work directory to .vim
 Change work directory to .vim
 
 > `$ ./install.sh backup`
-
-## Last modified
-2016-06-30
