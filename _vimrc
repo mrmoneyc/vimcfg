@@ -83,25 +83,31 @@ call dein#add('fatih/vim-go')
 call dein#add('nsf/gocode')
 
 " For PHP Development
+call dein#add('StanAngeloff/php.vim')
 call dein#add('etaoins/vim-volt-syntax')
-call dein#add('vim-php/tagbar-phpctags.vim')
+" call dein#add('2072/php-indenting-for-vim')
+call dein#add('manic/vim-php-indent')
+" call dein#add('stephpy/vim-php-cs-fixer')
+" call dein#add('m2mdas/phpcomplete-extended')
+" call dein#add('m2mdas/phpcomplete-extended-symfony')
+" call dein#add('m2mdas/phpcomplete-extended-laravel')
+call dein#add('mkusher/padawan.vim')
 call dein#add('vim-php/vim-phpunit')
 call dein#add('vim-php/vim-composer')
-call dein#add('StanAngeloff/php.vim')
-" call dein#add('stephpy/vim-php-cs-fixer')
 call dein#add('joonty/vim-phpqa.git')
-call dein#add('m2mdas/phpcomplete-extended')
+call dein#add('vim-php/tagbar-phpctags.vim')
 
 " For JavaScript Development
 call dein#add('Shutnik/jshint2.vim')
 call dein#add('pangloss/vim-javascript')
+call dein#add('isRuslan/vim-es6')
 
 " For Web Development
 call dein#add('othree/html5.vim')
 
 " Editing
 call dein#add('mattn/emmet-vim')
-call dein#add('Lokaltog/vim-easymotion')
+call dein#add('easymotion/vim-easymotion')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-repeat')
@@ -115,6 +121,8 @@ call dein#add('sudo.vim')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('tpope/vim-fugitive')
 call dein#add('yegappan/mru')
+call dein#add('scrooloose/nerdtree')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
 
 " Utilities
 call dein#add('vimwiki/vimwiki')
@@ -130,7 +138,7 @@ call dein#add('mattn/vim-particle')
 " External Utilities
 call dein#add('rizzatti/funcoo.vim')
 call dein#add('rizzatti/dash.vim')
-call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 "------------------------------
 
 call dein#end()
@@ -142,6 +150,9 @@ filetype plugin indent on
 if dein#check_install()
   call dein#install()
 endif
+
+" Clean disable plugins
+call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 "------------------------------
 " General
@@ -223,7 +234,7 @@ nmap <localleader>reload :source $HOME/.vimrc<CR>
 
 " Platform detect
 if has('mac') || has('gui_mac')
-"  let $PATH = '/opt/local/bin:'.$PATH
+ let $PATH = $PATH . ':' . expand('/opt/local/bin') . ':' . expand('~/.composer/vendor')
 endif
 
 " Make a buffer modifiable
@@ -834,7 +845,7 @@ let g:neocomplete#enable_auto_select = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+" autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -845,13 +856,20 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+" let g:neocomplete#force_omni_input_patterns.php = '\h\w*\|[^- \t]->\w*'
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -1035,7 +1053,19 @@ let g:phpqa_codecoverage_autorun = 0
 "------------------------------
 " phpcomplete-extended
 "------------------------------
-let g:phpcomplete_index_composer_command = "composer"
+" let g:phpcomplete_index_composer_command = "composer"
+
+"------------------------------
+" Padawan.vim
+"------------------------------
+let g:padawan#composer_command = "$HOME/bin/composer"
+
+" http request timeout
+let g:padawan#timeout = 0.1
+
+" If padawan not install global
+" let g:padawan#cli = '/path/to/padawan.php/bin/padawan'
+" let g:padawan#server_command = '/path/to/padawan.php/bin/padawan-server'
 
 "------------------------------
 " JSHint 2
@@ -1247,4 +1277,11 @@ nmap <localleader>cp :PREVCOLOR<CR>
 " vim-sauce
 "------------------------------
 let g:sauce_path = "$HOME/.vim/vimsauce"
+
+"------------------------------
+" nerdtree
+"------------------------------
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 "------------------------------------------------------------

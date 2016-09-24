@@ -2,3 +2,4 @@ bundle/
 neocompcache/
 vimswap
 .netrwhist
+init.vim
