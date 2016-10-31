@@ -1,5 +1,5 @@
 ## About
-Yet another fine tune Vim configuration for Vim, MacVim, GVim and NeoVim
+Yet another fine-tuned Vim configuration for Vim, MacVim, GVim and NeoVim
 
 ## Installation
 **Prerequisite: Make sure GIT is installed**
