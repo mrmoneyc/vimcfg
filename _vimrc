@@ -63,6 +63,8 @@ call dein#add('Shougo/unite.vim')
 call dein#add('itchyny/lightline.vim')
 call dein#add('sjl/gundo.vim')
 call dein#add('nathanaelkane/vim-indent-guides')
+call dein#add('mhinz/vim-startify')
+call dein#add('scrooloose/syntastic')
 
 " Syntax
 "call dein#add('skammer/vim-css-color')
@@ -657,7 +659,8 @@ let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ]
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+  \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
   \ },
   \ 'component_function': {
   \   'modified': 'MyModified',
@@ -669,6 +672,12 @@ let g:lightline = {
   \   'fileencoding': 'MyFileencoding',
   \   'mode': 'MyMode',
   \   'ctrlpmark': 'CtrlPMark',
+  \ },
+  \ 'component_expand': {
+  \   'syntastic': 'SyntasticStatuslineFlag',
+  \ },
+  \ 'component_type': {
+  \   'syntastic': 'error',
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' }
@@ -741,6 +750,44 @@ endfunction
 fun! CtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+	let g:lightline.fname = a:fname
+	return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+	autocmd!
+	autocmd BufWritePost *.c,*.cpp call s:syntastic()
+	autocmd BufWritePost *.go call s:syntastic()
+augroup END
+function! s:syntastic()
+	SyntasticCheck
+	call lightline#update()
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+"------------------------------
+"  Syntastic
+"------------------------------
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'errcheck']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_phpcs_args = "--standard=$HOME/dotenv/Vim/phpcs.xml"
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint'
 
 "------------------------------
 "  Ctrl-P
@@ -929,26 +976,26 @@ let g:tagbar_expand = 0
 let g:tagbar_type_go = {
       \ 'ctagstype' : 'go',
       \ 'kinds'     : [
-      \ 'p:package',
-      \ 'i:imports:1',
-      \ 'c:constants',
-      \ 'v:variables',
-      \ 't:types',
-      \ 'n:interfaces',
-      \ 'w:fields',
-      \ 'e:embedded',
-      \ 'm:methods',
-      \ 'r:constructor',
-      \ 'f:functions'
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
       \ ],
       \ 'sro' : '.',
       \ 'kind2scope' : {
-      \ 't' : 'ctype',
-      \ 'n' : 'ntype'
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
       \ },
       \ 'scope2kind' : {
-      \ 'ctype' : 't',
-      \ 'ntype' : 'n'
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
       \ },
       \ 'ctagsbin'  : 'gotags',
       \ 'ctagsargs' : '-sort -silent'
@@ -1021,7 +1068,7 @@ let g:phpqa_codesniffer_args = "--standard=$HOME/dotenv/Vim/phpcs.xml"
 "let g:phpqa_php_cmd='/path/to/php'
 
 " PHP Code Sniffer binary (default = phpcs)
-"let g:phpqa_codesniffer_cmd='/path/to/phpcs'
+let g:phpqa_codesniffer_cmd='$HOME/.composer/vendor/bin/phpcs'
 
 " PHP Mess Detector binary (default = phpmd)
 "let g:phpqa_messdetector_cmd='/path/to/phpmd'
@@ -1074,10 +1121,10 @@ let g:padawan#timeout = 0.1
 "let jshint2_command = ''
 
 " Lint JavaScript files after reading it
-let jshint2_read = 1
+let jshint2_read = 0
 
 " Lint JavaScript files after saving it
-let jshint2_save = 1
+let jshint2_save = 0
 
 " Do not automatically close orphaned error lists
 let jshint2_close = 0
@@ -1148,16 +1195,40 @@ let g:html5_aria_attributes_complete = 1
 "------------------------------
 " vim-go
 "------------------------------
+" Key Mappings
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+
+" Opens the target identifier in current buffer
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+" Open the relevant Godoc for the word under the cursor
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+" Show a list of interfaces which is implemented by the type under cursor
+au FileType go nmap <Leader>s <Plug>(go-implements)
+
+" Show type info for the word under your cursor
+au FileType go nmap <Leader>i <Plug>(go-info)
+
+" Rename the identifier under the cursor to a new name
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
 " Disable opening browser after posting to your snippet to play.golang.org
 let g:go_play_open_browser = 0
 
 " By default vim-go shows errors for the fmt command, to disable it
-let g:go_fmt_fail_silently = 0
+let g:go_fmt_fail_silently = 1
 
 " Enable goimports to automatically insert import paths instead of gofmt
 let g:go_fmt_command = "goimports"
 
-" Disable auto fmt on save
+" Auto fmt on save
 let g:go_fmt_autosave = 1
 
 " By default binaries are installed to $GOBIN or $GOPATH/bin. To change it
@@ -1168,9 +1239,12 @@ let g:go_fmt_autosave = 1
 " disabled. To change it
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+" let g:go_list_type = "quickfix"
 
 "------------------------------
 " Vdebug
