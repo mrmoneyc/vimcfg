@@ -82,7 +82,7 @@ call dein#add('craigemery/vim-autotag')
 
 " For Golang Development
 call dein#add('fatih/vim-go')
-call dein#add('nsf/gocode')
+call dein#add('nsf/gocode', {'rtp': 'vim'})
 
 " For PHP Development
 call dein#add('StanAngeloff/php.vim')
@@ -282,7 +282,7 @@ filetype plugin on
 filetype indent on
 
 " Auto set shift width by filetype
-au FileType html,python,perl,vim,javascript,css,go
+au FileType html,python,perl,vim,javascript,css
   \ set shiftwidth=2 |
   \ set tabstop=2 |
   \ set softtabstop=2
@@ -290,6 +290,10 @@ au FileType c,php,java,sh
   \ set shiftwidth=4 |
   \ set tabstop=4 |
   \ set softtabstop=4
+au FileType go
+  \ set shiftwidth=8 |
+  \ set tabstop=8 |
+  \ set softtabstop=8
 
 " Word wrap without line breaks
 set wrap
@@ -783,7 +787,8 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'errcheck']
 " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=$HOME/dotenv/Vim/phpcs.xml"
 
 let g:syntastic_javascript_checkers = ['eslint']
@@ -823,6 +828,9 @@ let g:ctrlp_custom_ignore = {
 " Use a custom file listing command
 "let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 "let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+
+" Disable caching
+let g:ctrlp_use_caching = 1
 
 "------------------------------
 "  Auto completion: neocomplete, neosnippet.vim
