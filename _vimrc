@@ -784,7 +784,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
-let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'errcheck']
+" let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'errcheck']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
@@ -1234,6 +1235,7 @@ let g:go_play_open_browser = 0
 let g:go_fmt_fail_silently = 1
 
 " Enable goimports to automatically insert import paths instead of gofmt
+" let g:go_fmt_command = "gofmt"
 let g:go_fmt_command = "goimports"
 
 " Auto fmt on save
