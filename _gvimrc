@@ -2,9 +2,9 @@
 "
 " gVim/MacVim configure file.
 "
-" Maintainer: Chun-Ping Chang (mrmoneyc) <mmc -AT- mrmoneyc.org>
+" Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2014-04-14 13:35:03
+" Last modified: 2017-05-16 00:36:29
 "
 "------------------------------------------------------------
 
@@ -50,16 +50,11 @@ set anti
 
 " When font size = 13pt
 set columns=159
-set lines=46
+set lines=48
 
 " maximize window
-"set columns=999
-"set lines=999
-
-"winsize 159 46
-
-" Default maximal window
-"autocmd GUIEnter * simalt ~x
+" set columns=999
+" set lines=999
 
 " Remove toolbar
 set guioptions-=m
