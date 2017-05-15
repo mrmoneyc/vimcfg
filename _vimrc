@@ -74,7 +74,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('tpope/vim-fugitive')
   call dein#add('yegappan/mru')
-  call dein#add('sudo.vim')
+  call dein#add('vim-scripts/sudo.vim')
   " call dein#add('eshion/vim-sync/')
 
   " Editing
@@ -119,7 +119,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " Utilities
   call dein#add('vimwiki/vimwiki')
-  call dein#add('calendar.vim')
+  call dein#add('vim-scripts/calendar.vim')
   call dein#add('joonty/vdebug')
   call dein#add('mattn/webapi-vim')
   call dein#add('christoomey/vim-quicklink')
