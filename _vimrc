@@ -117,6 +117,9 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " call dein#add('spf13/PIV')
   " call dein#add('mkusher/padawan.vim')
 
+  " For Python Development
+  call dein#add('davidhalter/jedi-vim')
+
   " Utilities
   call dein#add('vimwiki/vimwiki')
   call dein#add('vim-scripts/calendar.vim')
@@ -965,7 +968,8 @@ let g:neocomplete#enable_auto_select = 1
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 " autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
@@ -984,11 +988,12 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-" if !exists('g:neocomplete#force_omni_input_patterns')
-"   let g:neocomplete#force_omni_input_patterns = {}
-" endif
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
 " let g:neocomplete#force_omni_input_patterns.php = '\h\w*::\|[^- \t]->\w*'
 " let g:neocomplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 "------------------------------
 "  Auto completion: neosnippet.vim
