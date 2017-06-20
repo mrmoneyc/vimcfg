@@ -4,7 +4,7 @@
 "
 " Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2017-05-16 00:36:44
+" Last modified: 2017-06-20 16:28:08
 "
 "------------------------------------------------------------
 "------------------------------
@@ -593,8 +593,11 @@ let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'tagbar' ], ['ctrlpmark'] ],
   \   'right': [ [ 'ale', 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+  \ },
+  \ 'component': {
+  \   'tagbar': '%{tagbar#currenttag("[%s]", "", "f")}',
   \ },
   \ 'component_function': {
   \   'modified': 'MyModified',
