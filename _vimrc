@@ -49,6 +49,14 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('nanotech/jellybeans.vim')
   call dein#add('jonathanfilip/vim-lucius')
   call dein#add('noahfrederick/vim-hemisu')
+  call dein#add('dracula/vim')
+  call dein#add('sonph/onehalf', {'rtp': 'vim/'})
+  call dein#add('google/vim-colorscheme-primary')
+  call dein#add('hauleth/blame.vim')
+  call dein#add('beigebrucewayne/Turtles')
+  call dein#add('hzchirs/vim-material')
+  call dein#add('exitface/synthwave.vim')
+  call dein#add('tomasiser/vim-code-dark')
   "call dein#add('flazz/vim-colorschemes')
 
   " UI
@@ -102,6 +110,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " Syntax
   call dein#add('StanAngeloff/php.vim')
+  call dein#add('posva/vim-vue')
 
   " Linter
   " call dein#add('vim-syntastic/syntastic')
@@ -518,6 +527,7 @@ set background=dark
 " ColorScheme
 " colorscheme wombat256mod_mmc
 " colorscheme solarized
+" colorscheme codedark
 
 " Display Vim mode
 set showmode
