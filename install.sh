@@ -1,7 +1,7 @@
 #!/bin/bash
-PWD=`/bin/pwd`
-VIM_DIR=$HOME/.vim
-BUNDLE_DIR=$VIM_DIR/bundle
+PWD="$(/bin/pwd)"
+VIM_DIR="$HOME/.vim"
+BUNDLE_DIR="$VIM_DIR/bundle"
 GIT_REPO=""
 
 warn() {
@@ -15,18 +15,18 @@ die() {
 
 postinst() {
     echo "[1;33m -- COMPILE VIMPROC  -- [m"
-    pushd $BUNDLE_DIR/repos/github.com/Shougo/vimproc*
+    pushd "$BUNDLE_DIR/repos/github.com/Shougo/vimproc*"
     make clean && make
     popd
 }
 
 backup_prev() {
-    popd $VIM_DIR
+    popd "$VIM_DIR"
     mkdir .vim
-    cp -R * .vim
-    tar zcvf $HOME/vim_config_prev.tar.gz $PWD/.vim
+    cp -R ./* .vim
+    tar zcvf "$HOME/vim_config_prev.tar.gz" "$PWD/.vim"
     popd
-    rm -rf $VIM_DIR
+    rm -rf "$VIM_DIR"
 }
 
 update() {
@@ -34,7 +34,7 @@ update() {
 }
 
 backup() {
-    pushd $VIM_DIR
+    pushd "$VIM_DIR"
     git commit -a
     git push --set-upstream $GIT_REPO master
     popd
@@ -43,7 +43,7 @@ backup() {
 inst_dein(){
     echo "[1;33m -- INSTALL DEIN.VIM -- [m"
     curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein_inst.sh
-    sh dein_inst.sh $BUNDLE_DIR
+    sh dein_inst.sh "$BUNDLE_DIR"
     rm dein_inst.sh
 }
 
@@ -55,22 +55,22 @@ inst_vimplugins() {
 install() {
     [ -e "$VIM_DIR" ] && [ -e "$HOME/.vimrc" ] && die "$VIM_DIR and $HOME/.vimrc already exist."
 
-    pushd $HOME
+    pushd "$HOME"
     git clone https://github.com/mrmoneyc/vimcfg.git "$VIM_DIR"
     popd
 
-    ln -fs $VIM_DIR/_vimrc $HOME/.vimrc
-    ln -fs $VIM_DIR/_gvimrc $HOME/.gvimrc
+    ln -fs "$VIM_DIR/_vimrc" "$HOME/.vimrc"
+    ln -fs "$VIM_DIR/_gvimrc" "$HOME/.gvimrc"
 
-    mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+    mkdir -p "${XDG_CONFIG_HOME:=$HOME/.config}"
     if ! [ -e "$XDG_CONFIG_HOME/nvim" ]; then
-        ln -s $VIM_DIR $XDG_CONFIG_HOME/nvim
+        ln -s "$VIM_DIR" "$XDG_CONFIG_HOME/nvim"
     fi
-    ln -s $VIM_DIR/_vimrc $XDG_CONFIG_HOME/nvim/init.vim
+    ln -s "$VIM_DIR/_vimrc" "$XDG_CONFIG_HOME/nvim/init.vim"
 
-    pushd $VIM_DIR
-    mkdir $PWD/vimswap
-    mkdir $PWD/vimsauce
+    pushd "$VIM_DIR"
+    mkdir "$PWD/vimswap"
+    mkdir "$PWD/vimsauce"
     popd
 }
 
