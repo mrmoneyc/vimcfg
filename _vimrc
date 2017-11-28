@@ -129,12 +129,17 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " For Python Development
   call dein#add('davidhalter/jedi-vim')
 
+  " For JavaScript Development
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('mxw/vim-jsx')
+
   " Utilities
   call dein#add('vimwiki/vimwiki')
   call dein#add('vim-scripts/calendar.vim')
   call dein#add('joonty/vdebug')
   call dein#add('mattn/webapi-vim')
   call dein#add('christoomey/vim-quicklink')
+  call dein#add('skywind3000/asyncrun.vim')
 
   " External Utilities
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -1042,6 +1047,16 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " let g:neosnippet#snippets_directory='$HOME/.vim/bundle/vim-snippets/snippets'
 
 "------------------------------
+" Emmet
+"------------------------------
+" let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+      \  'javascript.jsx' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}
+
+"------------------------------
 " vim-sauce
 "------------------------------
 let g:sauce_path = "$HOME/.vim/vimsauce"
@@ -1071,15 +1086,17 @@ let g:vdebug_options = {
 " Set 1 to keep the sign gutter open
 let g:ale_sign_column_always = 0
 
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
+" let g:ale_sign_error = '>>'
+" let g:ale_sign_warning = '--'
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " 'always' or 'normal' / 'never'
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
@@ -1187,6 +1204,12 @@ let g:padawan#timeout = 0.1
 " If padawan not install global
 " let g:padawan#cli = '/path/to/padawan.php/bin/padawan'
 " let g:padawan#server_command = '/path/to/padawan.php/bin/padawan-server'
+
+"------------------------------
+" vim-jsx
+"------------------------------
+" Allow JSX in normal JS files
+let g:jsx_ext_required = 0
 
 "------------------------------
 " Vimwiki
