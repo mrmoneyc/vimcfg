@@ -133,6 +133,10 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('pangloss/vim-javascript')
   call dein#add('mxw/vim-jsx')
 
+  " For C/C++ Development
+  call dein#add('vim-scripts/OmniCppComplete')
+  call dein#add('justmao945/vim-clang')
+
   " Utilities
   call dein#add('vimwiki/vimwiki')
   call dein#add('vim-scripts/calendar.vim')
@@ -279,7 +283,7 @@ au FileType html,perl,vim,javascript,css
   \ set shiftwidth=2 |
   \ set tabstop=2 |
   \ set softtabstop=2
-au FileType c,php,java,sh,python
+au FileType c,cpp,php,java,sh,python
   \ set shiftwidth=4 |
   \ set tabstop=4 |
   \ set softtabstop=4
@@ -580,10 +584,10 @@ set hlsearch
 nmap <F7> :set hls!<BAR>set hls?<CR>
 
 " Key binding: F8 - Create Ctag of current project.
-nmap <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nmap <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
 
 " Key binding: Ctrl+F8 - Create Ctag of current folder.
-nmap <C-F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f '%:p:h\\tags' '%:p:h'<CR>
+nmap <C-F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q -f '%:p:h\\tags' '%:p:h'<CR>
 
 " Key binding: ,, - Quick switch to normal mode
 " noremap <LocalLeader>, <C-\><C-N>
