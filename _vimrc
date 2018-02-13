@@ -111,6 +111,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " Syntax
   call dein#add('StanAngeloff/php.vim')
   call dein#add('posva/vim-vue')
+  call dein#add('google/vim-jsonnet')
 
   " Linter
   " call dein#add('vim-syntastic/syntastic')
