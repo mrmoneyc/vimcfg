@@ -298,18 +298,26 @@ filetype plugin on
 filetype indent on
 
 " Auto set shift width by filetype
-au FileType html,perl,vim,javascript,css
-  \ set shiftwidth=2 |
+au FileType perl,vim,html,javascript,css
   \ set tabstop=2 |
-  \ set softtabstop=2
-au FileType c,cpp,php,java,sh,python,apiblueprint
-  \ set shiftwidth=4 |
+  \ set softtabstop=2 |
+  \ set shiftwidth=2
+au FileType c,cpp,php,java,sh,apiblueprint
   \ set tabstop=4 |
-  \ set softtabstop=4
+  \ set softtabstop=4 |
+  \ set shiftwidth=4
+au FileType python
+  \ set tabstop=4 |
+  \ set softtabstop=4 |
+  \ set shiftwidth=4 |
+  \ set textwidth=79 |
+  \ set expandtab |
+  \ set autoindent |
+  \ set fileformat=unix
 au FileType go
-  \ set shiftwidth=8 |
   \ set tabstop=8 |
-  \ set softtabstop=8
+  \ set softtabstop=8 |
+  \ set shiftwidth=8
 
 " Word wrap without line breaks
 set wrap
