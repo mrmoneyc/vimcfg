@@ -270,6 +270,10 @@ endif
 " Make a buffer modifiable
 " set modifiable
 
+" Open split window below/right side
+set splitbelow
+set splitright
+
 "------------------------------
 " Edit setting
 "------------------------------
