@@ -38,6 +38,14 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " Required:
   call dein#add('Shougo/dein.vim')
 
+  " call dein#add('reconquest/vim-pythonx')
+  " call dein#add('Shougo/deoplete.nvim')
+
+  " if !has('nvim')
+    " call dein#add('roxma/nvim-yarp')
+    " call dein#add('roxma/vim-hug-neovim-rpc')
+  " endif
+
   "------------------------------
   " Add or remove your plugins here
   "------------------------------
@@ -60,7 +68,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   "call dein#add('flazz/vim-colorschemes')
 
   " UI
-  call dein#add('Shougo/vimshell')
+  call dein#add('Shougo/vimshell.vim')
   " You can specify revision/branch/tag.
   " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
   call dein#add('Shougo/unite.vim')
@@ -112,6 +120,9 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('StanAngeloff/php.vim')
   call dein#add('posva/vim-vue')
   call dein#add('google/vim-jsonnet')
+  call dein#add('kylef/apiblueprint.vim')
+  call dein#add('godlygeek/tabular')
+  call dein#add('plasticboy/vim-markdown')
 
   " Linter
   " call dein#add('vim-syntastic/syntastic')
@@ -120,6 +131,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " For Golang Development
   call dein#add('fatih/vim-go')
   call dein#add('nsf/gocode', {'rtp': 'vim/'})
+  " call dein#add('sebdah/vim-delve')
 
   " For PHP Development
   call dein#add('shawncplus/phpcomplete.vim')
@@ -128,7 +140,9 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " call dein#add('mkusher/padawan.vim')
 
   " For Python Development
+  call dein#add('plytophogy/vim-virtualenv')
   call dein#add('davidhalter/jedi-vim')
+  " call dein#add('python-mode/python-mode')
 
   " For JavaScript Development
   call dein#add('pangloss/vim-javascript')
@@ -284,7 +298,7 @@ au FileType html,perl,vim,javascript,css
   \ set shiftwidth=2 |
   \ set tabstop=2 |
   \ set softtabstop=2
-au FileType c,cpp,php,java,sh,python
+au FileType c,cpp,php,java,sh,python,apiblueprint
   \ set shiftwidth=4 |
   \ set tabstop=4 |
   \ set softtabstop=4
@@ -613,11 +627,12 @@ let g:lightline = {
   \ 'colorscheme': 'solarized',
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'tagbar' ], ['ctrlpmark'] ],
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'tagbar', 'virtualenv' ], ['ctrlpmark'] ],
   \   'right': [ [ 'ale', 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
   \ },
   \ 'component': {
   \   'tagbar': '%{tagbar#currenttag("[%s]", "", "f")}',
+  \   'virtualenv': '%{virtualenv#statusline()}',
   \ },
   \ 'component_function': {
   \   'modified': 'MyModified',
@@ -1243,5 +1258,91 @@ let g:rtfp_font = 'Menlo'
 
 "Key binding: CMD+c - Copy colored source code to clipboard
 " smap <D-c> :RTFPygmentize<CR>
+
+"------------------------------
+" vim-markdown
+"------------------------------
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+
+"------------------------------
+" Python env
+"------------------------------
+" set pythonhome=/opt/local/Library/Frameworks/Python.framework/Versions/2.7
+" set pythondll=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib
+" set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.6
+" set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
+
+" function! s:py3_test()
+    " py3 import time
+    " py3 from ctypes import *
+    " py3 lib = cdll.LoadLibrary("/usr/lib/libc.dylib")
+    " py3 print(time.ctime(lib.time(0)))
+" endfunction
+" function! s:py_test()
+    " py import time
+    " py from ctypes import *
+    " py lib = cdll.LoadLibrary("/usr/lib/libc.dylib")
+    " py print(time.ctime(lib.time(0)))
+" endfunction
+" call s:py3_test()
+" call s:py_test()
+
+"------------------------------
+" vim-pythonx
+"------------------------------
+" if has('pythonx')
+  " let s:py = 'pythonx'
+  " let s:pyeval = function('pyxeval')
+" elseif has('python3')
+  " let s:py = 'python3'
+  " let s:pyeval = function('py3eval')
+" else
+  " let s:py = 'python'
+  " let s:pyeval = function('pyeval')
+" endif
+
+"------------------------------
+" python-mode
+"------------------------------
+" let g:pymode_python = 'python3'
+
+"------------------------------
+" vim-virtualenv
+"------------------------------
+let g:virtualenv_directory = '$HOME/.pyenvs'
+let g:virtualenv_stl_format = '[%n]'
+" let g:virtualenv_auto_activate = 1
+
+"------------------------------
+" Append virtualenv site_packages to sys.path
+"------------------------------
+if has('python3')
+py3 << EOF
+import os, sys, pathlib
+if 'VIRTUAL_ENV' in os.environ:
+  venv = os.getenv('VIRTUAL_ENV')
+  site_packages = next(pathlib.Path(venv, 'lib').glob('python*/site-packages'), None)
+  if site_packages:
+    sys.path.insert(0, str(site_packages))
+EOF
+elseif has('python')
+py << EOF
+import os, os.path, sys, vim
+
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  sys.path.insert(0, project_base_dir)
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+  python_version = os.listdir(project_base_dir + '/lib')[0]
+
+  site_packages = os.path.join(project_base_dir, 'lib', python_version, 'site-packages')
+  current_directory = os.getcwd()
+
+  sys.path.insert(1, site_packages)
+  sys.path.insert(1, current_directory)
+EOF
+endif
 
 "------------------------------------------------------------
