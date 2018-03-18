@@ -4,8 +4,6 @@
 "
 " Maintainer: Chun-Ping Chang (mrmoneyc) <moneyc.net -AT- gmail.com>
 "
-" Last modified: 2017-06-20 16:28:08
-"
 "------------------------------------------------------------
 "------------------------------
 " General abbreviates
@@ -38,14 +36,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " Required:
   call dein#add('Shougo/dein.vim')
 
-  " call dein#add('reconquest/vim-pythonx')
-  " call dein#add('Shougo/deoplete.nvim')
-
-  " if !has('nvim')
-    " call dein#add('roxma/nvim-yarp')
-    " call dein#add('roxma/vim-hug-neovim-rpc')
-  " endif
-
   "------------------------------
   " Add or remove your plugins here
   "------------------------------
@@ -65,14 +55,12 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('hzchirs/vim-material')
   call dein#add('exitface/synthwave.vim')
   call dein#add('tomasiser/vim-code-dark')
-  "call dein#add('flazz/vim-colorschemes')
 
   " UI
   call dein#add('Shougo/vimshell.vim')
   " You can specify revision/branch/tag.
   " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
   call dein#add('Shougo/unite.vim')
-  " call dein#add('Shougo/denite.nvim')
   call dein#add('itchyny/lightline.vim')
   call dein#add('sjl/gundo.vim')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -82,7 +70,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('jistr/vim-nerdtree-tabs')
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   call dein#add('lilydjwg/colorizer')
-  " call dein#add('ap/vim-css-color')
   call dein#add('airblade/vim-gitgutter')
 
   " File management
@@ -91,7 +78,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('tpope/vim-fugitive')
   call dein#add('yegappan/mru')
   call dein#add('vim-scripts/sudo.vim')
-  " call dein#add('eshion/vim-sync/')
 
   " Editing
   call dein#add('mattn/emmet-vim')
@@ -102,7 +88,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('benjifisher/matchit.zip')
   call dein#add('mileszs/ack.vim')
   call dein#add('Raimondi/delimitMate')
-  " call dein#add('LargeFile')
 
   " Auto completion
   call dein#add('Shougo/neocomplete')
@@ -113,7 +98,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " Index
   call dein#add('universal-ctags/ctags')
-  " call dein#add('ctags.vim')
   call dein#add('craigemery/vim-autotag')
 
   " Syntax
@@ -125,7 +109,6 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('plasticboy/vim-markdown')
 
   " Linter
-  " call dein#add('vim-syntastic/syntastic')
   call dein#add('w0rp/ale')
 
   " For Golang Development
@@ -135,14 +118,11 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " For PHP Development
   call dein#add('shawncplus/phpcomplete.vim')
-  " call dein#add('m2mdas/phpcomplete-extended')
-  " call dein#add('spf13/PIV')
   " call dein#add('mkusher/padawan.vim')
 
   " For Python Development
   call dein#add('plytophogy/vim-virtualenv')
   call dein#add('davidhalter/jedi-vim')
-  " call dein#add('python-mode/python-mode')
 
   " For JavaScript Development
   call dein#add('pangloss/vim-javascript')
@@ -560,11 +540,6 @@ endif
 " Set background (dark/light)
 set background=dark
 
-" ColorScheme
-" colorscheme wombat256mod_mmc
-" colorscheme solarized
-" colorscheme codedark
-
 " Display Vim mode
 set showmode
 
@@ -640,7 +615,7 @@ let g:lightline = {
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'tagbar', 'virtualenv' ], ['ctrlpmark'] ],
-  \   'right': [ [ 'ale', 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+  \   'right': [ [ 'ale', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
   \ },
   \ 'component': {
   \   'tagbar': '%{tagbar#currenttag("[%s]", "", "f")}',
@@ -659,10 +634,8 @@ let g:lightline = {
   \   'ale': 'ALE',
   \ },
   \ 'component_expand': {
-  \   'syntastic': 'SyntasticStatuslineFlag',
   \ },
   \ 'component_type': {
-  \   'syntastic': 'error',
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' }
@@ -746,16 +719,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
 	let g:lightline.fname = a:fname
 	return lightline#statusline(0)
 endfunction
-
-" augroup AutoSyntastic
-" 	autocmd!
-" 	autocmd BufWritePost *.c,*.cpp call s:syntastic()
-" 	autocmd BufWritePost *.go call s:syntastic()
-" augroup END
-" function! s:syntastic()
-" 	SyntasticCheck
-" 	call lightline#update()
-" endfunction
 
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
@@ -1147,25 +1110,6 @@ let g:ale_linters = {
 let g:ale_php_phpcs_standard = '$HOME/dotenv/Vim/phpcs.xml'
 
 "------------------------------
-"  Syntastic
-"------------------------------
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-
-" " let g:syntastic_go_checkers = ['go', 'gofmt', 'golint', 'govet', 'errcheck']
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-" " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-" let g:syntastic_php_checkers = ['php', 'phpcs']
-" let g:syntastic_php_phpcs_args = "--standard=$HOME/dotenv/Vim/phpcs.xml"
-
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exec = 'eslint'
-
-"------------------------------
 " vim-go
 "------------------------------
 " Key Mappings
@@ -1276,48 +1220,6 @@ let g:rtfp_font = 'Menlo'
 "------------------------------
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
-
-"------------------------------
-" Python env
-"------------------------------
-" set pythonhome=/opt/local/Library/Frameworks/Python.framework/Versions/2.7
-" set pythondll=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib
-" set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.6
-" set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
-
-" function! s:py3_test()
-    " py3 import time
-    " py3 from ctypes import *
-    " py3 lib = cdll.LoadLibrary("/usr/lib/libc.dylib")
-    " py3 print(time.ctime(lib.time(0)))
-" endfunction
-" function! s:py_test()
-    " py import time
-    " py from ctypes import *
-    " py lib = cdll.LoadLibrary("/usr/lib/libc.dylib")
-    " py print(time.ctime(lib.time(0)))
-" endfunction
-" call s:py3_test()
-" call s:py_test()
-
-"------------------------------
-" vim-pythonx
-"------------------------------
-" if has('pythonx')
-  " let s:py = 'pythonx'
-  " let s:pyeval = function('pyxeval')
-" elseif has('python3')
-  " let s:py = 'python3'
-  " let s:pyeval = function('py3eval')
-" else
-  " let s:py = 'python'
-  " let s:pyeval = function('pyeval')
-" endif
-
-"------------------------------
-" python-mode
-"------------------------------
-" let g:pymode_python = 'python3'
 
 "------------------------------
 " vim-virtualenv
