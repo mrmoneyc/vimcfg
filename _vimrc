@@ -109,6 +109,8 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('kylef/apiblueprint.vim')
   call dein#add('godlygeek/tabular')
   call dein#add('plasticboy/vim-markdown')
+  call dein#add('ain/vim-capistrano')
+  call dein#add('rodjek/vim-puppet')
 
   " Linter
   call dein#add('w0rp/ale')
