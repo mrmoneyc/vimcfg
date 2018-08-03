@@ -62,6 +62,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
   call dein#add('Shougo/unite.vim')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('maximbaz/lightline-ale')
   call dein#add('sjl/gundo.vim')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('mhinz/vim-startify')
@@ -88,6 +89,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('benjifisher/matchit.zip')
   call dein#add('mileszs/ack.vim')
   call dein#add('Raimondi/delimitMate')
+  call dein#add('editorconfig/editorconfig-vim')
 
   " Auto completion
   call dein#add('Shougo/neocomplete')
@@ -615,7 +617,7 @@ let g:lightline = {
   \ 'mode_map': { 'c': 'NORMAL' },
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename', 'tagbar', 'virtualenv' ], ['ctrlpmark'] ],
-  \   'right': [ [ 'ale', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+  \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
   \ },
   \ 'component': {
   \   'tagbar': '%{tagbar#currenttag("[%s]", "", "f")}',
@@ -631,11 +633,18 @@ let g:lightline = {
   \   'fileencoding': 'MyFileencoding',
   \   'mode': 'MyMode',
   \   'ctrlpmark': 'CtrlPMark',
-  \   'ale': 'ALE',
   \ },
   \ 'component_expand': {
+	\  'linter_checking': 'lightline#ale#checking',
+	\  'linter_warnings': 'lightline#ale#warnings',
+	\  'linter_errors': 'lightline#ale#errors',
+	\  'linter_ok': 'lightline#ale#ok',
   \ },
   \ 'component_type': {
+	\     'linter_checking': 'left',
+	\     'linter_warnings': 'warning',
+	\     'linter_errors': 'error',
+	\     'linter_ok': 'left',
   \ },
   \ 'separator': { 'left': '', 'right': '' },
   \ 'subseparator': { 'left': '', 'right': '' }
@@ -690,10 +699,6 @@ fun! CtrlPMark()
   else
     return ''
   endif
-endfunction
-
-fun! ALE()
-  return ALEGetStatusLine()
 endfunction
 
 let g:ctrlp_status_func = {
