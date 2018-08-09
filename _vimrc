@@ -137,6 +137,11 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('vim-scripts/OmniCppComplete')
   call dein#add('justmao945/vim-clang')
 
+  " For Ruby Development
+  call dein#add('vim-ruby/vim-ruby')
+  call dein#add('tpope/vim-rails')
+  call dein#add('ruby-formatter/rufo-vim')
+
   " Utilities
   call dein#add('vimwiki/vimwiki')
   call dein#add('vim-scripts/calendar.vim')
@@ -1266,5 +1271,10 @@ if 'VIRTUAL_ENV' in os.environ:
   sys.path.insert(1, current_directory)
 EOF
 endif
+
+"------------------------------
+" rufo-vim
+"------------------------------
+let g:rufo_auto_formatting = 1
 
 "------------------------------------------------------------
