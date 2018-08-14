@@ -112,6 +112,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('ain/vim-capistrano')
   call dein#add('rodjek/vim-puppet')
   call dein#add('martinda/Jenkinsfile-vim-syntax')
+  call dein#add('ekalinin/Dockerfile.vim')
 
   " Linter
   call dein#add('w0rp/ale')
@@ -141,6 +142,10 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('vim-ruby/vim-ruby')
   call dein#add('tpope/vim-rails')
   call dein#add('ruby-formatter/rufo-vim')
+  call dein#add('tpope/vim-bundler')
+  call dein#add('tpope/vim-endwise')
+  call dein#add('tpope/vim-cucumber')
+  call dein#add('skalnik/vim-vroom')
 
   " Utilities
   call dein#add('vimwiki/vimwiki')
@@ -149,6 +154,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('mattn/webapi-vim')
   call dein#add('christoomey/vim-quicklink')
   call dein#add('skywind3000/asyncrun.vim')
+  call dein#add('tpope/vim-dispatch')
 
   " External Utilities
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -935,6 +941,10 @@ let NERDSpaceDelims = 1
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif"
+
+let g:ackhighlight = 1
+" let g:ackpreview = 0
+" let g:ack_use_dispatch = 0
 
 "------------------------------
 "  Auto completion: neocomplete
