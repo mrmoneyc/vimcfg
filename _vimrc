@@ -602,15 +602,15 @@ set listchars=tab:▸\ ,eol:¬
 "set list
 nmap <F6> :set list!<BAR>set list?<CR>
 
-" Key binding: F7 - Highlight search things Enable/Disable
+" Key binding: F7 - Create Ctag of current project.
+nmap <F7> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
+
+" Key binding: Ctrl+F7 - Create Ctag of current folder.
+nmap <C-F7> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q -f '%:p:h\\tags' '%:p:h'<CR>
+
+" Key binding: F8 - Highlight search things Enable/Disable
 set hlsearch
-nmap <F7> :set hls!<BAR>set hls?<CR>
-
-" Key binding: F8 - Create Ctag of current project.
-nmap <F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
-
-" Key binding: Ctrl+F8 - Create Ctag of current folder.
-nmap <C-F8> :!ctags -R --c++-kinds=+p --fields=+iaS --extras=+q -f '%:p:h\\tags' '%:p:h'<CR>
+nmap <F8> :set hls!<BAR>set hls?<CR>
 
 " Key binding: ,, - Quick switch to normal mode
 " noremap <LocalLeader>, <C-\><C-N>
@@ -1307,6 +1307,45 @@ if 'VIRTUAL_ENV' in os.environ:
   sys.path.insert(1, current_directory)
 EOF
 endif
+
+"------------------------------
+" SrcExpl
+"------------------------------
+" // Set the height of Source Explorer window
+let g:SrcExpl_winHeight = 8
+
+" // Set 100 ms for refreshing the Source Explorer
+let g:SrcExpl_refreshTime = 100
+
+" // Set "Enter" key to jump into the exact definition context
+let g:SrcExpl_jumpKey = "<ENTER>"
+
+" // Set "Space" key for back from the definition context
+let g:SrcExpl_gobackKey = "<SPACE>"
+
+" // In order to Avoid conflicts, the Source Explorer should know what plugins
+" // are using buffers. And you need add their bufname into the list below
+" // according to the command ":buffers!"
+let g:SrcExpl_pluginList = [
+        \ "__Tag_List__",
+        \ "_NERD_tree_",
+        \ "Source_Explorer"
+    \ ]
+
+" // Enable/Disable the local definition searching, and note that this is not
+" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
+" // It only searches for a match with the keyword according to command 'gd'
+let g:SrcExpl_searchLocalDef = 1
+
+" // Do not let the Source Explorer update the tags file when opening
+let g:SrcExpl_isUpdateTags = 0
+
+" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+" //  create/update a tags file
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+
+" // Set "<F12>" key for updating the tags file artificially
+" let g:SrcExpl_updateTagsKey = "<F12>"
 
 "------------------------------
 " rufo-vim
