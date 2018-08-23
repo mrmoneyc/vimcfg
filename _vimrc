@@ -117,6 +117,10 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " Linter
   call dein#add('w0rp/ale')
 
+  " Language Server
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+
   " For Golang Development
   call dein#add('fatih/vim-go')
   call dein#add('nsf/gocode', {'rtp': 'vim/'})
@@ -958,6 +962,18 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+" Always refresh
+let g:neocomplete#enable_refresh_always = 1
+" Fuzzy completion
+let g:neocomplete#enable_fuzzy_completion = 0
+" Auto Delimiter
+let g:neocomplete#enable_auto_delimiter = 1
+" Underbar Completion
+let g:neocomplete#enable_underbar_completion = 1
+" Camel Case Completion
+let g:neocomplete#enable_camel_case_completion = 1
+
+
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
@@ -1000,18 +1016,6 @@ let g:neocomplete#enable_auto_select = 1
 "let g:neocomplete#disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType python setlocal omnifunc=jedi#completions
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-" autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-
-set completeopt=longest,menuone
-
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
@@ -1030,6 +1034,27 @@ endif
 " let g:neocomplete#force_omni_input_patterns.php = '\h\w*::\|[^- \t]->\w*'
 " let g:neocomplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+if !exists('g:neocomplete#same_filetypes')
+  let g:neocomplete#same_filetypes = {}
+endif
+let g:neocomplete#same_filetypes.ruby = 'eruby'
+
+let g:neocomplete#data_directory = $HOME . '/.vim/cache/neocomplete'
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=jedi#completions
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
+
+set completeopt=longest,menuone
 
 "------------------------------
 "  Auto completion: neosnippet.vim
@@ -1286,5 +1311,37 @@ endif
 " rufo-vim
 "------------------------------
 let g:rufo_auto_formatting = 0
+
+"------------------------------
+" vim-lsp
+"------------------------------
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+
+let g:lsp_signs_error = {'text': '●'}
+let g:lsp_signs_warning = {'text': '.'}
+" let g:lsp_signs_error = {'text': '✗'}
+" let g:lsp_signs_warning = {'text': '‼', 'icon': '/path/to/some/icon'} " icons require GUI
+" let g:lsp_signs_hint = {'icon': '/path/to/some/other/icon'} " icons require GUI
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" for asyncomplete.vim log
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+if executable('solargraph')
+    " gem install solargraph
+    augroup lsp_solargraph
+      au!
+      au User lsp_setup call lsp#register_server({
+          \ 'name': 'solargraph',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+          \ 'initialization_options': {"diagnostics": "true"},
+          \ 'whitelist': ['ruby'],
+          \ })
+      au FileType ruby setlocal omnifunc=lsp#complete
+    augroup end
+endif
 
 "------------------------------------------------------------

@@ -1,5 +1,6 @@
 bundle/
 neocompcache/
+cache/
 vimswap
 .netrwhist
 init.vim
