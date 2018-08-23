@@ -159,6 +159,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('christoomey/vim-quicklink')
   call dein#add('skywind3000/asyncrun.vim')
   call dein#add('tpope/vim-dispatch')
+  call dein#add('wesleyche/SrcExpl')
 
   " External Utilities
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -589,7 +590,7 @@ nnoremap <F2> :NERDTreeTabsToggle<CR>
 " Key binding: F3 - Toggle Tagbar
 nnoremap <F3> :TagbarToggle<CR>
 
-" Key binding: F4 - Toggle SrxExpl
+" Key binding: F4 - Toggle SrcExpl
 nmap <F4> :SrcExplToggle<CR>
 
 " Key binding: F5 - key for toggle relative line number
