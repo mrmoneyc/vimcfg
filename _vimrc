@@ -123,7 +123,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " For Golang Development
   call dein#add('fatih/vim-go')
-  call dein#add('nsf/gocode', {'rtp': 'vim/'})
+  call dein#add('mdempsky/gocode', {'rtp': 'vim/'})
   " call dein#add('sebdah/vim-delve')
 
   " For PHP Development
