@@ -625,6 +625,24 @@ nmap <localleader>hex :%!xxd<CR>
 " Key binding: ,rhex - Return view file to normal mode from hex mode
 nmap <localleader>rhex :%!xxd -r<CR>
 
+"------------------------------
+" Automatically fitting a quickfix window height
+"------------------------------
+au FileType qf call AdjustWindowHeight(3, 10)
+function! AdjustWindowHeight(minheight, maxheight)
+	let l = 1
+	let n_lines = 0
+	let w_width = winwidth(0)
+	while l <= line('$')
+		" number to float for division
+		let l_len = strlen(getline(l)) + 0.0
+		let line_width = l_len/w_width
+		let n_lines += float2nr(ceil(line_width))
+		let l += 1
+	endw
+	exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
 "------------------------------------------------------------
 " Plugins
 "------------------------------------------------------------
@@ -1143,8 +1161,8 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
 " If you are combining ALE with
 " some other plugin which sets quickfix errors, etc.
 let g:ale_keep_list_window_open = 0
