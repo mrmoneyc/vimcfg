@@ -969,6 +969,10 @@ let g:ackhighlight = 1
 " let g:ackpreview = 0
 " let g:ack_use_dispatch = 0
 
+" Do not jump to the first result automatically
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
 "------------------------------
 "  Auto completion: neocomplete
 "------------------------------
