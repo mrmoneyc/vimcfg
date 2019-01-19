@@ -151,6 +151,10 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('tpope/vim-cucumber')
   call dein#add('skalnik/vim-vroom')
 
+  " For HashiCorp tool
+  call dein#add('hashivim/vim-terraform')
+  call dein#add('juliosueiras/vim-terraform-completion')
+
   " Utilities
   call dein#add('vimwiki/vimwiki')
   call dein#add('vim-scripts/calendar.vim')
@@ -1046,6 +1050,7 @@ endif
 let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.terraform = '[^ *\t"{=$]\w*'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
