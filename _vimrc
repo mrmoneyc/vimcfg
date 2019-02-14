@@ -154,6 +154,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " For HashiCorp tool
   call dein#add('hashivim/vim-terraform')
   call dein#add('juliosueiras/vim-terraform-completion')
+  call dein#add('hashivim/vim-vagrant')
 
   " Utilities
   call dein#add('vimwiki/vimwiki')
@@ -1180,6 +1181,7 @@ let g:ale_linters = {
 \   'php': ['php -l', 'phpcs'],
 \   'python': ['flake8'],
 \   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
 \}
 
 " PHP
