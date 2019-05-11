@@ -1187,6 +1187,9 @@ let g:ale_linters = {
 " PHP
 let g:ale_php_phpcs_standard = '$HOME/dotenv/Vim/phpcs.xml'
 
+" Go
+let g:ale_go_langserver_executable = 'gopls'
+
 "------------------------------
 " vim-go
 "------------------------------
@@ -1241,6 +1244,21 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
 " let g:go_list_type = "quickfix"
+
+" For support gopls
+let g:go_def_mode='gopls'
+augroup LspGo
+  au!
+  autocmd User lsp_setup call lsp#register_server({
+      \ 'name': 'go-lang',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+  autocmd FileType go setlocal omnifunc=lsp#complete
+  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+augroup END
 
 "------------------------------
 " phpcomplete-extended
