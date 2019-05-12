@@ -1245,20 +1245,7 @@ let g:go_highlight_build_constraints = 1
 
 " let g:go_list_type = "quickfix"
 
-" For support gopls
-let g:go_def_mode='gopls'
-augroup LspGo
-  au!
-  autocmd User lsp_setup call lsp#register_server({
-      \ 'name': 'go-lang',
-      \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
-      \ })
-  autocmd FileType go setlocal omnifunc=lsp#complete
-  "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-  "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-  "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-augroup END
+let g:go_def_mode = "gopls"
 
 "------------------------------
 " phpcomplete-extended
@@ -1411,24 +1398,40 @@ let g:lsp_signs_warning = {'text': '.'}
 " let g:lsp_signs_warning = {'text': '‼', 'icon': '/path/to/some/icon'} " icons require GUI
 " let g:lsp_signs_hint = {'icon': '/path/to/some/other/icon'} " icons require GUI
 
-let g:lsp_log_verbose = 1
+let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/vim-lsp.log')
 
 " for asyncomplete.vim log
 " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
+if executable('gopls')
+  " go get -u golang.org/x/tools/cmd/gopls
+  augroup LspGo
+    au!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'go-lang',
+          \ 'cmd': {server_info->['gopls']},
+          \ 'whitelist': ['go'],
+          \ })
+    autocmd FileType go setlocal omnifunc=lsp#complete
+    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+  augroup END
+endif
+
 if executable('solargraph')
-    " gem install solargraph
-    augroup lsp_solargraph
-      au!
-      au User lsp_setup call lsp#register_server({
+  " gem install solargraph
+  augroup lsp_solargraph
+    au!
+    au User lsp_setup call lsp#register_server({
           \ 'name': 'solargraph',
           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
           \ 'initialization_options': {"diagnostics": "true"},
           \ 'whitelist': ['ruby'],
           \ })
-      au FileType ruby setlocal omnifunc=lsp#complete
-    augroup end
+    au FileType ruby setlocal omnifunc=lsp#complete
+  augroup end
 endif
 
 "------------------------------------------------------------
