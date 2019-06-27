@@ -123,7 +123,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
 
   " For Golang Development
   call dein#add('fatih/vim-go')
-  call dein#add('mdempsky/gocode', {'rtp': 'vim/'})
+  " call dein#add('mdempsky/gocode', {'rtp': 'vim/'})
   " call dein#add('sebdah/vim-delve')
 
   " For PHP Development
@@ -1052,6 +1052,7 @@ let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.terraform = '[^ *\t"{=$]\w*'
+" let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
@@ -1081,7 +1082,7 @@ autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 " autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
+" autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
 
 set completeopt=longest,menuone
 
@@ -1178,6 +1179,7 @@ let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 0
 
 let g:ale_linters = {
+\   'go': ['gopls'],
 \   'php': ['php -l', 'phpcs'],
 \   'python': ['flake8'],
 \   'javascript': ['eslint'],
@@ -1188,7 +1190,7 @@ let g:ale_linters = {
 let g:ale_php_phpcs_standard = '$HOME/dotenv/Vim/phpcs.xml'
 
 " Go
-let g:ale_go_langserver_executable = 'gopls'
+" let g:ale_go_langserver_executable = 'gopls'
 
 "------------------------------
 " vim-go
@@ -1216,6 +1218,9 @@ au FileType go nmap <Leader>i <Plug>(go-info)
 
 " Rename the identifier under the cursor to a new name
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+" Enable code completion
+let g:go_code_completion_enabled = 1
 
 " Disable opening browser after posting to your snippet to play.golang.org
 let g:go_play_open_browser = 0
@@ -1245,7 +1250,12 @@ let g:go_highlight_build_constraints = 1
 
 " let g:go_list_type = "quickfix"
 
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+
+" Support Go Language Server Protocol
 let g:go_def_mode = "gopls"
+let g:go_info_mode = "gopls"
 
 "------------------------------
 " phpcomplete-extended
@@ -1389,8 +1399,9 @@ let g:rufo_auto_formatting = 0
 "------------------------------
 " vim-lsp
 "------------------------------
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_diagnostics_enabled = 0 " disable document diagnostics
+let g:lsp_signs_enabled = 0         " disable signs
+let g:lsp_diagnostics_echo_cursor = 0 " disable echo under cursor when in normal mode
 
 let g:lsp_signs_error = {'text': '●'}
 let g:lsp_signs_warning = {'text': '.'}
@@ -1398,27 +1409,29 @@ let g:lsp_signs_warning = {'text': '.'}
 " let g:lsp_signs_warning = {'text': '‼', 'icon': '/path/to/some/icon'} " icons require GUI
 " let g:lsp_signs_hint = {'icon': '/path/to/some/other/icon'} " icons require GUI
 
-let g:lsp_log_verbose = 0
-let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:lsp_log_verbose = 0
+" let g:lsp_log_file = expand('~/vim-lsp.log')
 
 " for asyncomplete.vim log
 " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-if executable('gopls')
-  " go get -u golang.org/x/tools/cmd/gopls
-  augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'go-lang',
-          \ 'cmd': {server_info->['gopls']},
-          \ 'whitelist': ['go'],
-          \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-    "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
-    "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
-    "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
-  augroup END
-endif
+" if executable('gopls')
+  " " go get -u golang.org/x/tools/cmd/gopls
+  " augroup lsp_go
+    " au!
+    " au User lsp_setup call lsp#register_server({
+          " \ 'name': 'gopls',
+          " \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+          " \ 'whitelist': ['go'],
+          " \ })
+    " au FileType go setlocal omnifunc=lsp#complete
+    " au BufWritePre *.go LspDocumentFormatSync
+    " "autocmd FileType go nmap <buffer> gd <plug>(lsp-definition)
+    " "autocmd FileType go nmap <buffer> ,n <plug>(lsp-next-error)
+    " "autocmd FileType go nmap <buffer> ,p <plug>(lsp-previous-error)
+    " au FileType go nmap <Leader>d <Plug>(lsp-definition)
+  " augroup END
+" endif
 
 if executable('solargraph')
   " gem install solargraph
@@ -1427,7 +1440,7 @@ if executable('solargraph')
     au User lsp_setup call lsp#register_server({
           \ 'name': 'solargraph',
           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-          \ 'initialization_options': {"diagnostics": "true"},
+          \ 'initialization_options': {"diagnostics": "false"},
           \ 'whitelist': ['ruby'],
           \ })
     au FileType ruby setlocal omnifunc=lsp#complete
