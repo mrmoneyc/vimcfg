@@ -1156,6 +1156,15 @@ let g:vdebug_options = {
 "------------------------------
 " ALE
 "------------------------------
+" Key Mappings
+nnoremap <silent> <leader>sc :ALELint<cr>
+nnoremap <silent> <leader>sn :ALENext<cr>
+nnoremap <silent> <leader>sN :ALEPrevious<cr>
+nnoremap <silent> <leader>sp :ALEPrevious<cr>
+nnoremap <silent> <leader>sr :ALEDisable<cr>
+nnoremap <silent> <leader>st :ALEToggle<cr>
+nnoremap <silent> <leader>si :ALEInfo<cr>
+
 " Set 1 to keep the sign gutter open
 let g:ale_sign_column_always = 0
 
@@ -1441,9 +1450,9 @@ if executable('solargraph')
           \ 'name': 'solargraph',
           \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
           \ 'initialization_options': {"diagnostics": "false"},
-          \ 'whitelist': ['ruby'],
+          \ 'whitelist': ['ruby', 'eruby'],
           \ })
-    au FileType ruby setlocal omnifunc=lsp#complete
+    au FileType ruby,eruby setlocal omnifunc=lsp#complete
   augroup end
 endif
 
