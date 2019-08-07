@@ -40,6 +40,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   " Add or remove your plugins here
   "------------------------------
   " Colorscheme
+  call dein#add('vim-scripts/ScrollColors')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('chriskempson/base16-vim')
   call dein#add('goatslacker/mango.vim')
@@ -72,6 +73,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('Xuyuanp/nerdtree-git-plugin')
   call dein#add('lilydjwg/colorizer')
   call dein#add('airblade/vim-gitgutter')
+  call dein#add('wsdjeg/dein-ui.vim')
 
   " File management
   call dein#add('joonty/vim-sauce.git')
@@ -90,6 +92,7 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('mileszs/ack.vim')
   call dein#add('Raimondi/delimitMate')
   call dein#add('editorconfig/editorconfig-vim')
+  " call dein#add('scrooloose/vim-slumlord')
 
   " Auto completion
   call dein#add('Shougo/neocomplete')
@@ -113,6 +116,8 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('rodjek/vim-puppet')
   call dein#add('martinda/Jenkinsfile-vim-syntax')
   call dein#add('ekalinin/Dockerfile.vim')
+  call dein#add('liuchengxu/graphviz.vim')
+  " call dein#add('aklt/plantuml-syntax')
 
   " Linter
   call dein#add('w0rp/ale')
@@ -125,6 +130,9 @@ if dein#load_state(expand('$HOME/.vim/bundle'))
   call dein#add('fatih/vim-go')
   " call dein#add('mdempsky/gocode', {'rtp': 'vim/'})
   " call dein#add('sebdah/vim-delve')
+
+  " For Rust Development
+  call dein#add('rust-lang/rust.vim')
 
   " For PHP Development
   call dein#add('shawncplus/phpcomplete.vim')
@@ -1455,5 +1463,24 @@ if executable('solargraph')
     au FileType ruby,eruby setlocal omnifunc=lsp#complete
   augroup end
 endif
+
+if executable('rls')
+  " gem install solargraph
+  augroup lsp_rls
+    au!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'rls',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rls']},
+          \ 'initialization_options': {"diagnostics": "false"},
+          \ 'whitelist': ['rust'],
+          \ })
+    au FileType rust setlocal omnifunc=lsp#complete
+  augroup end
+endif
+
+"------------------------------
+" PlantUML
+"------------------------------
+let g:plantuml_executable_script = '/opt/local/bin/plantuml'
 
 "------------------------------------------------------------
