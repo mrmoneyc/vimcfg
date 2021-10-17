@@ -228,7 +228,11 @@ set background=dark
 " Set colorscheme
 augroup coloroverride
   autocmd!
-  autocmd ColorScheme * highlight CursorLine gui=underline cterm=underline ctermfg=NONE guifg=NONE
+  autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE gui=underline guifg=NONE
+  autocmd ColorScheme * highlight DiffAdd cterm=reverse,bold ctermfg=green ctermbg=NONE
+  autocmd ColorScheme * highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight DiffDelete cterm=reverse,bold ctermfg=red ctermbg=NONE
+  autocmd ColorScheme * highlight DiffText cterm=reverse,bold ctermfg=yellow ctermbg=NONE
 augroup END
 silent! colorscheme eldar
 
@@ -525,17 +529,6 @@ endfun
 " Basically you press * or # to search for the current selection !! Really useful
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
-
-"------------------------------
-"  Diff
-"------------------------------
-" Style
-if has('diff')
-    hi DiffAdd ctermfg=Grey ctermbg=DarkBlue guifg=Grey
-    hi DiffDelete ctermfg=Grey ctermbg=DarkRed guifg=Grey
-    hi DiffChange ctermfg=Black ctermbg=DarkGreen guifg=Black
-    hi DiffText ctermfg=White ctermbg=DarkRed guifg=Black
-endif
 
 "------------------------------
 " String replace keybinding
